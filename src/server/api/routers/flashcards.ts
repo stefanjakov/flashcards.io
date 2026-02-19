@@ -14,11 +14,23 @@ const learnBatchInput = z.object({
     .default(DEFAULT_LEARN_BATCH_SIZE),
   random: z.boolean().default(false),
   retryIds: z.array(z.number().int().positive()).default([]),
+  batchKey: z.number().int().optional(),
 });
 
-const learnAnswerInput = z.object({
-  flashCardId: z.number().int().positive(),
-  correct: z.boolean(),
+  const learnAnswerInput = z.object({
+    flashCardId: z.number().int().positive(),
+    correct: z.boolean(),
+  });
+
+const submitLearnBatchInput = z.object({
+  results: z
+    .array(
+      z.object({
+        flashCardId: z.number().int().positive(),
+        correct: z.boolean(),
+      }),
+    )
+    .min(1),
 });
 
 const shuffleInPlace = <T>(items: T[]) => {
@@ -58,7 +70,9 @@ export const flashCardRouter = createTRPCRouter({
       }
 
       const where =
-        retryIds.length > 0 ? { id: { notIn: retryIds } } : undefined;
+        retryIds.length > 0
+          ? { id: { notIn: retryIds }, progress: null }
+          : { progress: null };
 
       let nextCards: typeof trimmedRetryCards = [];
       if (input.random) {
@@ -115,6 +129,58 @@ export const flashCardRouter = createTRPCRouter({
       });
     }),
 
+  submitLearnBatch: publicProcedure
+    .input(submitLearnBatchInput)
+    .mutation(async ({ ctx, input }) => {
+      const uniqueResults = Array.from(
+        new Map(input.results.map((result) => [result.flashCardId, result]))
+          .values(),
+      );
+
+      await ctx.db.$transaction(
+        uniqueResults.map((result) => {
+          const update = result.correct
+            ? {
+                correctCount: { increment: 1 },
+                streak: { increment: 1 },
+              }
+            : {
+                incorrectCount: { increment: 1 },
+                streak: 0,
+                mastered: false,
+              };
+
+          const create = result.correct
+            ? {
+                flashCardId: result.flashCardId,
+                correctCount: 1,
+                incorrectCount: 0,
+                streak: 1,
+                mastered: false,
+              }
+            : {
+                flashCardId: result.flashCardId,
+                correctCount: 0,
+                incorrectCount: 1,
+                streak: 0,
+                mastered: false,
+              };
+
+          return ctx.db.flashCardProgress.upsert({
+            where: { flashCardId: result.flashCardId },
+            update,
+            create,
+          });
+        }),
+      );
+
+      const wrongIds = uniqueResults
+        .filter((result) => !result.correct)
+        .map((result) => result.flashCardId);
+
+      return { wrongIds };
+    }),
+
   getLearnProgress: publicProcedure.query(async ({ ctx }) => {
     const [totalCards, progressAgg, masteredCount] = await ctx.db.$transaction([
       ctx.db.flashCard.count(),
@@ -140,5 +206,10 @@ export const flashCardRouter = createTRPCRouter({
       incorrectCount: progressAgg._sum.incorrectCount ?? 0,
       maxStreak: progressAgg._max.streak ?? 0,
     };
+  }),
+
+  resetLearnProgress: publicProcedure.mutation(async ({ ctx }) => {
+    const deleted = await ctx.db.flashCardProgress.deleteMany();
+    return { deleted: deleted.count };
   }),
 });
