@@ -17,5 +17,16 @@ model FlashCard {
   definition String
   createdAt  DateTime @default(now())
 
-  @@index([createdAt])
+  progress FlashCardProgress?
+}
+
+model FlashCardProgress {
+  id          Int       @id @default(autoincrement())
+  flashCard   FlashCard @relation(fields: [flashCardId], references: [id])
+  flashCardId Int       @unique
+
+  correctCount   Int     @default(0)
+  incorrectCount Int     @default(0)
+  streak         Int     @default(0)
+  mastered       Boolean @default(false)
 }

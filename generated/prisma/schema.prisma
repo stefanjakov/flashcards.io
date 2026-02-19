@@ -11,11 +11,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model FlashCard {
+  id         Int      @id @default(autoincrement())
+  term       String
+  definition String
+  createdAt  DateTime @default(now())
 
-  @@index([name])
+  progress FlashCardProgress?
+}
+
+model FlashCardProgress {
+  id          Int       @id @default(autoincrement())
+  flashCard   FlashCard @relation(fields: [flashCardId], references: [id])
+  flashCardId Int       @unique
+
+  correctCount   Int     @default(0)
+  incorrectCount Int     @default(0)
+  streak         Int     @default(0)
+  mastered       Boolean @default(false)
 }
