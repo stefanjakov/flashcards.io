@@ -108,9 +108,20 @@ export function LearnDebug() {
 
   if (batch.length === 0) {
     return (
-      <p className="mt-2 text-sm text-slate-600">
-        No cards yet. Add some flashcards to get started.
-      </p>
+      <div>
+        <p className="mt-2 text-sm text-slate-600">
+          No cards yet. Add some flashcards to get started.
+        </p>
+
+        <button
+          type="button"
+          onClick={() => resetProgress.mutate()}
+          className="mt-4 rounded border border-slate-300 px-3 py-2 text-xs text-slate-700"
+        >
+          Reset progress
+        </button>
+      </div>
+
     );
   }
 

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { Prisma } from "../../../../generated/prisma";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const DEFAULT_LEARN_BATCH_SIZE = 7;
@@ -136,43 +137,54 @@ export const flashCardRouter = createTRPCRouter({
         new Map(input.results.map((result) => [result.flashCardId, result]))
           .values(),
       );
+      const correctIds = uniqueResults
+        .filter((result) => result.correct)
+        .map((result) => result.flashCardId);
+      const incorrectIds = uniqueResults
+        .filter((result) => !result.correct)
+        .map((result) => result.flashCardId);
 
-      await ctx.db.$transaction(
-        uniqueResults.map((result) => {
-          const update = result.correct
-            ? {
-                correctCount: { increment: 1 },
-                streak: { increment: 1 },
-              }
-            : {
-                incorrectCount: { increment: 1 },
-                streak: 0,
-                mastered: false,
-              };
+      const buildValues = (ids: number[], correct: boolean) =>
+        Prisma.join(
+          ids.map((id) =>
+            Prisma.sql`(${id}, ${correct ? 1 : 0}, ${correct ? 0 : 1}, ${
+              correct ? 1 : 0
+            }, ${false})`,
+          ),
+        );
 
-          const create = result.correct
-            ? {
-                flashCardId: result.flashCardId,
-                correctCount: 1,
-                incorrectCount: 0,
-                streak: 1,
-                mastered: false,
-              }
-            : {
-                flashCardId: result.flashCardId,
-                correctCount: 0,
-                incorrectCount: 1,
-                streak: 0,
-                mastered: false,
-              };
+      const queries: ReturnType<typeof ctx.db.$executeRaw>[] = [];
 
-          return ctx.db.flashCardProgress.upsert({
-            where: { flashCardId: result.flashCardId },
-            update,
-            create,
-          });
-        }),
-      );
+      if (correctIds.length > 0) {
+        queries.push(
+          ctx.db.$executeRaw(Prisma.sql`
+            INSERT INTO "public"."FlashCardProgress" ("flashCardId","correctCount","incorrectCount","streak","mastered")
+            VALUES ${buildValues(correctIds, true)}
+            ON CONFLICT ("flashCardId") DO UPDATE
+            SET "correctCount" = "public"."FlashCardProgress"."correctCount" + EXCLUDED."correctCount",
+                "incorrectCount" = "public"."FlashCardProgress"."incorrectCount" + EXCLUDED."incorrectCount",
+                "streak" = "public"."FlashCardProgress"."streak" + EXCLUDED."streak"
+          `),
+        );
+      }
+
+      if (incorrectIds.length > 0) {
+        queries.push(
+          ctx.db.$executeRaw(Prisma.sql`
+            INSERT INTO "public"."FlashCardProgress" ("flashCardId","correctCount","incorrectCount","streak","mastered")
+            VALUES ${buildValues(incorrectIds, false)}
+            ON CONFLICT ("flashCardId") DO UPDATE
+            SET "correctCount" = "public"."FlashCardProgress"."correctCount" + EXCLUDED."correctCount",
+                "incorrectCount" = "public"."FlashCardProgress"."incorrectCount" + EXCLUDED."incorrectCount",
+                "streak" = 0,
+                "mastered" = FALSE
+          `),
+        );
+      }
+
+      if (queries.length > 0) {
+        await ctx.db.$transaction(queries);
+      }
 
       const wrongIds = uniqueResults
         .filter((result) => !result.correct)
