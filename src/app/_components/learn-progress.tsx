@@ -1,5 +1,7 @@
 "use client";
 
+import { Reset } from "~/app/_components/reset";
+
 type LearnProgressStats = {
   totalCards: number;
   seenCount: number;
@@ -16,6 +18,7 @@ type LearnProgressProps = {
   currentIndex: number;
   batchSize: number;
   stats?: LearnProgressStats;
+  onReset?: () => Promise<void>;
 };
 
 export function LearnProgress({
@@ -23,6 +26,7 @@ export function LearnProgress({
   currentIndex,
   batchSize,
   stats,
+  onReset,
 }: LearnProgressProps) {
   return (
     <section className="mx-auto w-full bg-white p-3 text-xs sm:p-4 sm:text-sm">
@@ -47,6 +51,12 @@ export function LearnProgress({
             ) : null}
           </div>
         </div>
+        {onReset ? (
+          <Reset
+            onConfirm={onReset}
+            className="inline-flex items-center gap-2 rounded-full border border-brand-primary/20 bg-brand-primary/5 px-3 py-2 text-xs text-brand-primary sm:text-sm"
+          />
+        ) : null}
       </div>
 
       {stats ? (

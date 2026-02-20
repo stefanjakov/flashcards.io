@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 
 import { Flashcard } from "~/app/_components/flashcard";
 import { LearnProgress } from "~/app/_components/learn-progress";
-import { Reset } from "~/app/_components/reset";
 import { api } from "~/trpc/react";
 
 type LearnSessionProps = {
@@ -143,35 +142,26 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
 
   if (batchQuery.isLoading) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white p-4 shadow-lg sm:p-6">
-        <div className="mx-auto w-full max-w-3xl">
-          <p className="text-sm text-slate-600">Loading batch...</p>
-        </div>
+      <div className="mx-auto w-full max-w-3xl rounded-xl border bg-white p-4 shadow-sm sm:p-6">
+        <p className="text-sm text-slate-600">Loading batch...</p>
       </div>
     );
   }
 
   if (batch.length === 0) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white p-4 shadow-lg sm:p-6">
-        <div className="mx-auto w-full max-w-3xl space-y-4">
-          <LearnProgress
-            setName={studySetName}
-            currentIndex={0}
-            batchSize={7}
-            stats={optimisticStats ?? undefined}
-          />
-          <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 sm:p-6">
-            <p className="text-sm text-slate-600">
-              This set has no unseen cards. Add cards or reset this set&apos;s progress.
-            </p>
-            <div className="mt-4">
-              <Reset
-                onConfirm={handleResetProgress}
-                className="rounded border border-slate-300 px-3 py-2 text-sm text-slate-700"
-              />
-            </div>
-          </div>
+      <div className="space-y-4">
+        <LearnProgress
+          setName={studySetName}
+          currentIndex={0}
+          batchSize={7}
+          stats={optimisticStats ?? undefined}
+          onReset={handleResetProgress}
+        />
+        <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 sm:p-6">
+          <p className="text-sm text-slate-600">
+            This set has no unseen cards. Add cards or reset this set&apos;s progress.
+          </p>
         </div>
       </div>
     );
@@ -179,59 +169,53 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
 
   if (isBatchComplete) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white p-4 shadow-lg sm:p-6">
-        <div className="mx-auto w-full max-w-3xl space-y-4">
-          <LearnProgress
-            setName={studySetName}
-            currentIndex={batch.length}
-            batchSize={batch.length}
-            stats={optimisticStats ?? undefined}
-          />
-          <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 text-sm sm:p-6">
-            <div className="text-base font-medium">Batch complete</div>
-            <div className="mt-2 text-slate-600">Wrong in this batch: {wrongIds.length}</div>
-            <button
-              type="button"
-              onClick={handleNextBatch}
-              disabled={isContinuing}
-              className="mt-3 inline-flex items-center gap-2 rounded bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-60"
-            >
-              {isContinuing ? (
-                <span
-                  className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-white"
-                  aria-label="Loading next batch"
-                />
-              ) : null}
-              {isContinuing ? "Loading..." : "Next batch"}
-            </button>
-          </div>
+      <div className="space-y-4">
+        <LearnProgress
+          setName={studySetName}
+          currentIndex={batch.length}
+          batchSize={batch.length}
+          stats={optimisticStats ?? undefined}
+          onReset={handleResetProgress}
+        />
+        <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 text-sm sm:p-6">
+          <div className="text-base font-medium">Batch complete</div>
+          <div className="mt-2 text-slate-600">Wrong in this batch: {wrongIds.length}</div>
+          <button
+            type="button"
+            onClick={handleNextBatch}
+            disabled={isContinuing}
+            className="mt-3 inline-flex items-center gap-2 rounded bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-60"
+          >
+            {isContinuing ? (
+              <span
+                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-white"
+                aria-label="Loading next batch"
+              />
+            ) : null}
+            {isContinuing ? "Loading..." : "Next batch"}
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative">
-      <div className="fixed left-0 right-0 top-1/2 z-30 -translate-y-1/2 px-4 sm:px-6">
-        <div className="mx-auto w-full max-w-2xl">
-          <Flashcard
-            term={currentCard?.term ?? ""}
-            definition={currentCard?.definition ?? ""}
-            onResolve={handleResolveCard}
-          />
-        </div>
+    <div className="space-y-4">
+      <div className="mx-auto w-full max-w-2xl">
+        <Flashcard
+          term={currentCard?.term ?? ""}
+          definition={currentCard?.definition ?? ""}
+          onResolve={handleResolveCard}
+        />
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white ">
-        <div className="mx-auto w-full max-w-3xl">
-          <LearnProgress
-            setName={studySetName}
-            currentIndex={currentIndex}
-            batchSize={batch.length}
-            stats={optimisticStats ?? undefined}
-          />
-        </div>
-      </div>
+      <LearnProgress
+        setName={studySetName}
+        currentIndex={currentIndex}
+        batchSize={batch.length}
+        stats={optimisticStats ?? undefined}
+        onReset={handleResetProgress}
+      />
     </div>
   );
 }

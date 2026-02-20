@@ -51,7 +51,7 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
   }, [resultOpen, isCorrect]);
 
   return (
-    <div className="rounded-xl border bg-white p-4 text-sm sm:p-6">
+    <div className="relative rounded-xl border bg-white p-4 text-sm sm:p-6">
       <div className="text-xs uppercase tracking-wide text-slate-500">
         Definition
       </div>
@@ -68,7 +68,7 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
           value={answer}
           onChange={(event) => setAnswer(event.target.value)}
           placeholder="Type the term"
-          className="w-full rounded border px-3 py-2"
+          className="w-full rounded border px-3 py-2 text-brand-primary"
         />
         <button
           type="button"
@@ -94,12 +94,11 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
       ) : null}
 
       {resultOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
           <div className="w-full max-w-md rounded-xl bg-white p-5 shadow-lg">
             <div
-              className={`text-lg font-semibold ${
-                isCorrect ? "text-emerald-700" : "text-rose-700"
-              }`}
+              className={`text-lg font-semibold ${isCorrect ? "text-emerald-700" : "text-rose-700"
+                }`}
             >
               {isCorrect ? "Correct" : "Incorrect"}
             </div>
