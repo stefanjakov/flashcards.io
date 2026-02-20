@@ -1,8 +1,10 @@
 import { LearnSetHeader } from "~/app/_components/learn-set-header";
 import { LearnSession } from "~/app/_components/learn-session";
+import { requireAllowedEmail } from "~/lib/require-allowed-email";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Learn() {
+  await requireAllowedEmail();
   const [studySets, currentStudySet] = await Promise.all([
     api.flashCard.getStudySets(),
     api.flashCard.getCurrentStudySet(),

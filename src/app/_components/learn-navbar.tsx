@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { FcGoogle } from "react-icons/fc";
 
 export function LearnNavbar() {
   return (
@@ -15,8 +17,20 @@ export function LearnNavbar() {
         <Link href="/create">
           <div className="text-sm underline px-3 py-2 ">Create</div>
         </Link>
+        <SignedOut>
+          <SignInButton>
+            <button
+              aria-label="Sign out"
+              className="flex items-center justify-center rounded-full border border-brand-secondary bg-white p-1.5 transition-colors hover:bg-brand-secondary"
+            >
+              <FcGoogle className="h-5 w-5" />
+            </button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
-
     </nav>
   );
 }

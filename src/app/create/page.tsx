@@ -1,8 +1,10 @@
 import { api, HydrateClient } from "~/trpc/server";
+import { requireAllowedEmail } from "~/lib/require-allowed-email";
 import CreateSetPopup from "./_components/create-set-popup";
 import StudySetList from "./_components/study-set-list";
 
 export default async function Create() {
+  await requireAllowedEmail();
   const [studySets, currentStudySet] = await Promise.all([
     api.flashCard.getStudySets(),
     api.flashCard.getCurrentStudySet(),
