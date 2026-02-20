@@ -25,10 +25,7 @@ export default async function Create() {
             </h2>
 
             <StudySetList
-              initialStudySets={studySets.map((set) => ({
-                id: set.id,
-                name: set.name,
-              }))}
+              initialStudySets={studySets}
               currentStudySetId={currentStudySet?.studySetId ?? null}
             />
           </div>

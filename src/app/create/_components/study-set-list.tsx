@@ -4,7 +4,11 @@ import SetCard from "~/app/_components/set-card";
 import { api } from "~/trpc/react";
 
 type StudySetListProps = {
-  initialStudySets: Array<{ id: number; name: string }>;
+  initialStudySets: Array<{
+    id: number;
+    name: string;
+    _count: { cards: number };
+  }>;
   currentStudySetId: number | null;
 };
 
