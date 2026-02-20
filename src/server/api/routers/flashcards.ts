@@ -35,6 +35,10 @@ const setInput = z.object({
   studySetId: z.number().int().positive(),
 });
 
+const markdownInput = z.object({
+  markdown: z.string().min(1),
+});
+
 const shuffleInPlace = <T>(items: T[]) => {
   for (let i = items.length - 1; i > 0; i -= 1) {
     const swapIndex = Math.floor(Math.random() * (i + 1));
@@ -43,6 +47,50 @@ const shuffleInPlace = <T>(items: T[]) => {
     items[swapIndex] = temp as T;
   }
   return items;
+};
+
+const parseMarkdownStudySet = (markdown: string) => {
+  const lines = markdown.split(/\r?\n/);
+  let title = "";
+  let titleIndex = -1;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i]?.trim();
+    if (!line) continue;
+    if (line.startsWith("#")) {
+      title = line.replace(/^#+\s*/, "").trim();
+      titleIndex = i;
+      break;
+    }
+  }
+
+  if (!title) {
+    throw new Error("Markdown must start with a title like \"# My Set\"");
+  }
+
+  const cards: { term: string; definition: string }[] = [];
+
+  for (let i = titleIndex + 1; i < lines.length; i += 1) {
+    const rawLine = lines[i];
+    if (!rawLine) continue;
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#")) continue;
+
+    const separatorIndex = line.indexOf(":");
+    if (separatorIndex <= 0) continue;
+
+    const term = line.slice(0, separatorIndex).trim();
+    const definition = line.slice(separatorIndex + 1).trim();
+    if (!term || !definition) continue;
+
+    cards.push({ term, definition });
+  }
+
+  if (cards.length === 0) {
+    throw new Error("No valid term: definition pairs found");
+  }
+
+  return { title, cards };
 };
 
 export const flashCardRouter = createTRPCRouter({
@@ -101,6 +149,36 @@ export const flashCardRouter = createTRPCRouter({
       },
     });
   }),
+
+  createStudySetFromMarkdown: publicProcedure
+    .input(markdownInput)
+    .mutation(async ({ ctx, input }) => {
+      const { title, cards } = parseMarkdownStudySet(input.markdown);
+
+      return ctx.db.$transaction(async (tx) => {
+        const studySet = await tx.studySet.create({
+          data: { name: title },
+          select: { id: true, name: true },
+        });
+
+        await tx.flashCard.createMany({
+          data: cards.map((card) => ({
+            term: card.term,
+            definition: card.definition,
+            studySetId: studySet.id,
+          })),
+        });
+
+        await tx.appState.upsert({
+          where: { id: 1 },
+          update: { currentStudySetId: studySet.id },
+          create: { id: 1, currentStudySetId: studySet.id },
+          select: { id: true },
+        });
+
+        return { studySetId: studySet.id, cardCount: cards.length };
+      });
+    }),
 
   getLearnBatch: publicProcedure
     .input(learnBatchInput)

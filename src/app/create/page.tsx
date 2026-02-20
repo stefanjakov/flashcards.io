@@ -1,6 +1,6 @@
 import { api, HydrateClient } from "~/trpc/server";
-import SetCard from "../_components/set-card";
 import CreateSetPopup from "./_components/create-set-popup";
+import StudySetList from "./_components/study-set-list";
 
 export default async function Create() {
   const [studySets, currentStudySet] = await Promise.all([
@@ -26,16 +26,13 @@ export default async function Create() {
               Your Study Sets
             </h2>
 
-            <div className="space-y-4">
-              {studySets.map((set) => (
-                <SetCard
-                  key={set.id}
-                  id={set.id}
-                  name={set.name}
-                  currentStudySetId={currentStudySet?.studySetId ?? null}
-                />
-              ))}
-            </div>
+            <StudySetList
+              initialStudySets={studySets.map((set) => ({
+                id: set.id,
+                name: set.name,
+              }))}
+              currentStudySetId={currentStudySet?.studySetId ?? null}
+            />
           </div>
         </section>
       </main>

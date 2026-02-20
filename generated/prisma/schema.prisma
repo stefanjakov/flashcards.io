@@ -16,7 +16,7 @@ model FlashCard {
   term       String
   definition String
   createdAt  DateTime @default(now())
-  studySet   StudySet @relation(fields: [studySetId], references: [id])
+  studySet   StudySet @relation(fields: [studySetId], references: [id], onDelete: Cascade)
   studySetId Int
 
   progress FlashCardProgress?
@@ -24,7 +24,7 @@ model FlashCard {
 
 model FlashCardProgress {
   id          Int       @id @default(autoincrement())
-  flashCard   FlashCard @relation(fields: [flashCardId], references: [id])
+  flashCard   FlashCard @relation(fields: [flashCardId], references: [id], onDelete: Cascade)
   flashCardId Int       @unique
 
   correctCount   Int     @default(0)
