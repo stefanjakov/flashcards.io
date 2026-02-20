@@ -1,99 +1,16 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
-import { api } from "~/trpc/react";
-
-type StudySetOption = {
-  id: number;
-  name: string;
-};
-
-type LearnNavbarProps = {
-  studySets: StudySetOption[];
-  initialStudySetId: number | null;
-};
-
-export function LearnNavbar({
-  studySets,
-  initialStudySetId,
-}: LearnNavbarProps) {
-  const router = useRouter();
-  const [isRefreshing, startTransition] = useTransition();
-  const [isChangingSet, setIsChangingSet] = useState(false);
-  const fallbackStudySetId = studySets[0]?.id ?? null;
-  const hasInitial = studySets.some((set) => set.id === initialStudySetId);
-  const [selectedStudySetId, setSelectedStudySetId] = useState<number | null>(
-    hasInitial ? initialStudySetId : fallbackStudySetId,
-  );
-  const [isOpen, setIsOpen] = useState(false);
-
-  const setCurrentStudySet = api.flashCard.setCurrentStudySet.useMutation();
-
-  const handleChange = async (nextStudySetId: number) => {
-    setSelectedStudySetId(nextStudySetId);
-    setIsChangingSet(true);
-    try {
-      await setCurrentStudySet.mutateAsync({ studySetId: nextStudySetId });
-      startTransition(() => {
-        router.refresh();
-      });
-      setIsOpen(false);
-    } finally {
-      setIsChangingSet(false);
-    }
-  };
-  const isLoading = isChangingSet || setCurrentStudySet.isPending || isRefreshing;
-  const selectedSetName =
-    studySets.find((set) => set.id === selectedStudySetId)?.name ?? "Choose set";
-
+export function LearnNavbar() {
   return (
     <nav className="flex items-center justify-between border-b px-4 py-3 sm:px-6 sm:py-4">
-      <div className="text-base sm:text-lg">flashcards.io</div>
-      <div className="flex items-center gap-2">
-        {isLoading ? (
-          <div className="flex items-center gap-2 text-xs text-slate-600">
-            <span
-              className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700"
-              aria-label="Loading"
-            />
-          </div>
-        ) : null}
-        <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="min-w-36 rounded border px-3 py-2 text-left text-xs sm:min-w-44 sm:text-sm disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={studySets.length === 0 || isLoading}
-            >
-              {selectedSetName}
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-64 p-2" align="end">
-            <div className="max-h-72 overflow-y-auto">
-              {studySets.map((set) => (
-                <button
-                  key={set.id}
-                  type="button"
-                  onClick={() => handleChange(set.id)}
-                  disabled={isLoading}
-                  className={`block w-full rounded px-3 py-2 text-left text-sm hover:bg-zinc-200 ${
-                    set.id === selectedStudySetId ? "bg-zinc-100" : ""
-                  }`}
-                >
-                  {set.name}
-                </button>
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <Link href="/">
+        <div className="text-base sm:text-lg">flashcards.io</div>
+      </Link>
+      <Link href="/learn">
+        <div className="text-sm text-brand-secondary">Learn</div>
+      </Link>
     </nav>
   );
 }

@@ -28,7 +28,7 @@ export function Reset({ onConfirm, className }: ResetProps) {
         onClick={() => setOpen(true)}
         className={
           className ??
-          "rounded border border-slate-300 px-3 py-2 text-xs text-slate-700 sm:text-sm"
+          "rounded px-3 py-2 text-xs text-brand-primary sm:text-sm bg-brand-secondary "
         }
       >
         Reset progress
