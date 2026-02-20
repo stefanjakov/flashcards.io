@@ -10,21 +10,17 @@ export default async function Create() {
     api.flashCard.getCurrentStudySet(),
   ]);
 
-  const selectedSet = studySets.find(
-    (set) => set.id === currentStudySet.studySetId,
-  );
-
   return (
     <HydrateClient>
       <main>
-        <div className="flex gap-4 items-center p-4">
+        <div className="flex items-center gap-4 p-4">
           <h1 className="text-2xl">Your sets</h1>
           <CreateSetPopup />
         </div>
 
         <section id="study-sets" className="mt-8">
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-6">
-            <h2 className="text-2xl font-semibold text-brand-primary mb-6">
+          <div className="mx-auto max-w-2xl rounded-2xl bg-white p-6 shadow-md">
+            <h2 className="text-brand-primary mb-6 text-2xl font-semibold">
               Your Study Sets
             </h2>
 

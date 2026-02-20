@@ -12,7 +12,6 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     DIRECT_URL: z.string().url(),
-
   },
 
   /**

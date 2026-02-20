@@ -1,27 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { FcGoogle } from "react-icons/fc";
 
 export function LearnNavbar() {
   return (
-    <nav className="flex items-center justify-between border-b-4 border-brand-secondary px-4 py-3 sm:px-6 sm:py-4 bg-white text-brand-primary">
+    <nav className="border-brand-secondary text-brand-primary flex items-center justify-between border-b-4 bg-white px-4 py-3 sm:px-6 sm:py-4">
       <Link href="/">
-        <div className="text-base sm:text-lg">flashcards.io</div>
+        <div className="text-base sm:text-lg">Stefan&apos;s Study App</div>
       </Link>
       <div className="flex gap-2">
         <Link href="/learn">
-          <div className="text-sm underline px-3 py-2 ">Learn</div>
+          <div className="px-3 py-2 text-sm underline">Learn</div>
         </Link>
         <Link href="/create">
-          <div className="text-sm underline px-3 py-2 ">Create</div>
+          <div className="px-3 py-2 text-sm underline">Create</div>
         </Link>
         <SignedOut>
           <SignInButton>
             <button
               aria-label="Sign out"
-              className="flex items-center justify-center rounded-full border border-brand-secondary bg-white p-1.5 transition-colors hover:bg-brand-secondary"
+              className="border-brand-secondary hover:bg-brand-secondary flex items-center justify-center rounded-full border bg-white p-1.5 transition-colors"
             >
               <FcGoogle className="h-5 w-5" />
             </button>

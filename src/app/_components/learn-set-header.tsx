@@ -51,7 +51,8 @@ export function LearnSetHeader({
     }
   };
 
-  const isLoading = isChangingSet || isRefreshing || setCurrentStudySet.isPending;
+  const isLoading =
+    isChangingSet || isRefreshing || setCurrentStudySet.isPending;
   const selectedSetName =
     studySets.find((set) => set.id === selectedStudySetId)?.name ?? "Learn";
 
@@ -71,7 +72,7 @@ export function LearnSetHeader({
               <button
                 type="button"
                 disabled={studySets.length === 0 || isLoading}
-                className="px-3 py-2 text-sm border-2 border-white rounded-2xl hover:bg-brand-secondary hover:text-brand-primary hover:border-brand-secondary"
+                className="hover:bg-brand-secondary hover:text-brand-primary hover:border-brand-secondary rounded-2xl border-2 border-white px-3 py-2 text-sm"
               >
                 Change set
               </button>
@@ -84,8 +85,9 @@ export function LearnSetHeader({
                     type="button"
                     onClick={() => handleChange(set.id)}
                     disabled={isLoading}
-                    className={`block w-full rounded px-3 py-2 text-left text-sm hover:bg-zinc-200 ${set.id === selectedStudySetId ? "bg-zinc-100" : ""
-                      }`}
+                    className={`block w-full rounded px-3 py-2 text-left text-sm hover:bg-zinc-200 ${
+                      set.id === selectedStudySetId ? "bg-zinc-100" : ""
+                    }`}
                   >
                     {set.name}
                   </button>

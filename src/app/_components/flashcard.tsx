@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const normalize = (value: string) => value.trim().toLowerCase();
 
@@ -10,7 +10,11 @@ type FlashcardProps = {
   onResolveAction: (correct: boolean) => void;
 };
 
-export function Flashcard({ term, definition, onResolveAction }: FlashcardProps) {
+export function Flashcard({
+  term,
+  definition,
+  onResolveAction,
+}: FlashcardProps) {
   const [answer, setAnswer] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [resultOpen, setResultOpen] = useState(false);
@@ -32,10 +36,13 @@ export function Flashcard({ term, definition, onResolveAction }: FlashcardProps)
     setResultOpen(true);
   };
 
-  const handleResolve = (correct: boolean) => {
-    onResolveAction(correct);
-    resetCard();
-  };
+  const handleResolve = useCallback(
+    (correct: boolean) => {
+      onResolveAction(correct);
+      resetCard();
+    },
+    [onResolveAction],
+  );
 
   useEffect(() => {
     if (!resultOpen) return;
@@ -48,14 +55,16 @@ export function Flashcard({ term, definition, onResolveAction }: FlashcardProps)
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [resultOpen, isCorrect]);
+  }, [resultOpen, isCorrect, handleResolve]);
 
   return (
-    <div className="relative rounded-xl border-4 border-brand-secondary bg-white p-4 text-sm sm:p-6">
-      <div className="text-xs uppercase tracking-wide text-slate-500">
+    <div className="border-brand-secondary relative rounded-xl border-4 bg-white p-4 text-sm sm:p-6">
+      <div className="text-xs tracking-wide text-slate-500 uppercase">
         Definition
       </div>
-      <div className="mt-1 text-sm text-slate-700 sm:text-base">{definition}</div>
+      <div className="mt-1 text-sm text-slate-700 sm:text-base">
+        {definition}
+      </div>
 
       <form
         className="mt-4 flex flex-col gap-2 sm:flex-row"
@@ -68,12 +77,12 @@ export function Flashcard({ term, definition, onResolveAction }: FlashcardProps)
           value={answer}
           onChange={(event) => setAnswer(event.target.value)}
           placeholder="Type the term"
-          className="w-full rounded border px-3 py-2 text-brand-primary"
+          className="text-brand-primary w-full rounded border px-3 py-2"
         />
         <button
           type="button"
           onClick={handleCheck}
-          className="rounded px-3 py-2 text-sm text-brand-primary sm:text-base bg-brand-secondary"
+          className="text-brand-primary bg-brand-secondary rounded px-3 py-2 text-sm sm:text-base"
         >
           Check
         </button>
@@ -97,8 +106,9 @@ export function Flashcard({ term, definition, onResolveAction }: FlashcardProps)
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
           <div className="w-full max-w-md rounded-xl bg-white p-5 shadow-lg">
             <div
-              className={`text-lg font-semibold ${isCorrect ? "text-emerald-700" : "text-rose-700"
-                }`}
+              className={`text-lg font-semibold ${
+                isCorrect ? "text-emerald-700" : "text-rose-700"
+              }`}
             >
               {isCorrect ? "Correct" : "Incorrect"}
             </div>

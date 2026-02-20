@@ -5,9 +5,9 @@ import { HydrateClient } from "~/trpc/server";
 export default async function Home() {
   return (
     <HydrateClient>
-      <main className="min-h-screen flex flex-col gap-2 items-center justify-center">
-        <h1 className="text-4xl font-semibold text-center">flashcards.io</h1>
-        <Button className="bg-brand-primary border-2 border-brand-secondary text-lg hover:bg-brand-secondary hover:text-brand-primary">
+      <main className="flex min-h-screen flex-col items-center justify-center gap-2">
+        <h1 className="text-center text-4xl font-semibold">Stefan&apos;s Study App</h1>
+        <Button className="bg-brand-primary border-brand-secondary hover:bg-brand-secondary hover:text-brand-primary border-2 text-lg">
           <Link href="/learn">Start learning</Link>
         </Button>
       </main>

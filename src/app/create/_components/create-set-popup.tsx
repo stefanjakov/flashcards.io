@@ -20,8 +20,8 @@ export default function CreateSetPopup() {
   const utils = api.useUtils();
   const createMutation = api.flashCard.createStudySetFromMarkdown.useMutation({
     onSuccess: () => {
-      utils.flashCard.getStudySets.invalidate();
-      utils.flashCard.getCurrentStudySet.invalidate();
+      void utils.flashCard.getStudySets.invalidate();
+      void utils.flashCard.getCurrentStudySet.invalidate();
       setErrorMessage(null);
       setOpen(false);
     },
@@ -30,21 +30,26 @@ export default function CreateSetPopup() {
     },
   });
 
-  const onDrop = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    setErrorMessage(null);
-    const file = files[0];
-    if (!file) return;
+  const onDrop = useCallback(
+    (files: File[]) => {
+      if (files.length === 0) return;
+      setErrorMessage(null);
+      const file = files[0];
+      if (!file) return;
 
-    try {
-      const markdown = await file.text();
-      await createMutation.mutateAsync({ markdown });
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error ? error.message : "Failed to read the file.",
-      );
-    }
-  }, [createMutation]);
+      void (async () => {
+        try {
+          const markdown = await file.text();
+          await createMutation.mutateAsync({ markdown });
+        } catch (error) {
+          setErrorMessage(
+            error instanceof Error ? error.message : "Failed to read the file.",
+          );
+        }
+      })();
+    },
+    [createMutation],
+  );
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
     useDropzone({
@@ -56,16 +61,16 @@ export default function CreateSetPopup() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button className="bg-brand-secondary border-2 border-brand-secondary text-brand-primary hover:bg-brand-primary hover:text-brand-secondary hover:border-brand-secondary">
+        <Button className="bg-brand-secondary border-brand-secondary text-brand-primary hover:bg-brand-primary hover:text-brand-secondary hover:border-brand-secondary border-2">
           Create Set
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-96 p-4">
         <PopoverHeader className="gap-2">
-          <PopoverTitle className="text-base text-brand-primary">
+          <PopoverTitle className="text-brand-primary text-base">
             Create From Markdown
           </PopoverTitle>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Drop a markdown file in the style of term: definition, with a title.
           </p>
         </PopoverHeader>
@@ -84,7 +89,7 @@ export default function CreateSetPopup() {
           <input {...getInputProps()} />
           {createMutation.isPending ? (
             <div className="flex flex-col items-center gap-2">
-              <Loader2 className="h-5 w-5 animate-spin text-brand-primary" />
+              <Loader2 className="text-brand-primary h-5 w-5 animate-spin" />
               <p className="text-sm font-medium text-gray-800">
                 Creating your study set...
               </p>
@@ -92,9 +97,11 @@ export default function CreateSetPopup() {
           ) : (
             <>
               <p className="text-sm font-medium text-gray-800">
-                {isDragActive ? "Release to upload" : "Drag and drop a file here"}
+                {isDragActive
+                  ? "Release to upload"
+                  : "Drag and drop a file here"}
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-xs">
                 .md or .markdown, one file
               </p>
             </>

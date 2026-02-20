@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Comfortaa } from "next/font/google";
 
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "~/trpc/react";
 import { LearnNavbar } from "./_components/learn-navbar";
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${comfortaa.variable}`}>
-        <body className="font-sans bg-brand-primary text-white">
+        <body className="bg-brand-primary font-sans text-white">
           <LearnNavbar />
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </body>

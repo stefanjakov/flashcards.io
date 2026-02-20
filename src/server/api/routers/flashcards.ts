@@ -65,7 +65,7 @@ const parseMarkdownStudySet = (markdown: string) => {
   }
 
   if (!title) {
-    throw new Error("Markdown must start with a title like \"# My Set\"");
+    throw new Error('Markdown must start with a title like "# My Set"');
   }
 
   const cards: { term: string; definition: string }[] = [];
@@ -106,7 +106,7 @@ export const flashCardRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.studySet.delete({
@@ -189,14 +189,13 @@ export const flashCardRouter = createTRPCRouter({
       const retryCards =
         retryIds.length > 0
           ? await ctx.db.flashCard.findMany({
-            where: { id: { in: retryIds }, studySetId: input.studySetId },
-          })
+              where: { id: { in: retryIds }, studySetId: input.studySetId },
+            })
           : [];
 
       const retryOrder = new Map(retryIds.map((id, index) => [id, index]));
       retryCards.sort(
-        (a, b) =>
-          (retryOrder.get(a.id) ?? 0) - (retryOrder.get(b.id) ?? 0),
+        (a, b) => (retryOrder.get(a.id) ?? 0) - (retryOrder.get(b.id) ?? 0),
       );
 
       const trimmedRetryCards = retryCards.slice(0, limit);
@@ -207,7 +206,11 @@ export const flashCardRouter = createTRPCRouter({
 
       const where =
         retryIds.length > 0
-          ? { id: { notIn: retryIds }, progress: null, studySetId: input.studySetId }
+          ? {
+              id: { notIn: retryIds },
+              progress: null,
+              studySetId: input.studySetId,
+            }
           : { progress: null, studySetId: input.studySetId };
 
       let nextCards: typeof trimmedRetryCards = [];
@@ -232,8 +235,9 @@ export const flashCardRouter = createTRPCRouter({
     .input(submitLearnBatchInput)
     .mutation(async ({ ctx, input }) => {
       const requestedResults = Array.from(
-        new Map(input.results.map((result) => [result.flashCardId, result]))
-          .values(),
+        new Map(
+          input.results.map((result) => [result.flashCardId, result]),
+        ).values(),
       );
       const cardsInSet = await ctx.db.flashCard.findMany({
         where: {
@@ -257,8 +261,10 @@ export const flashCardRouter = createTRPCRouter({
 
       const buildValues = (ids: number[], correct: boolean) =>
         Prisma.join(
-          ids.map((id) =>
-            Prisma.sql`(${id}, ${correct ? 1 : 0}, ${correct ? 0 : 1}, ${correct ? 1 : 0
+          ids.map(
+            (id) =>
+              Prisma.sql`(${id}, ${correct ? 1 : 0}, ${correct ? 0 : 1}, ${
+                correct ? 1 : 0
               }, ${false})`,
           ),
         );
@@ -303,40 +309,48 @@ export const flashCardRouter = createTRPCRouter({
       return { wrongIds };
     }),
 
-  getLearnProgress: publicProcedure.input(setInput).query(async ({ ctx, input }) => {
-    const [totalCards, progressAgg, masteredCount] = await ctx.db.$transaction([
-      ctx.db.flashCard.count({ where: { studySetId: input.studySetId } }),
-      ctx.db.flashCardProgress.aggregate({
+  getLearnProgress: publicProcedure
+    .input(setInput)
+    .query(async ({ ctx, input }) => {
+      const [totalCards, progressAgg, masteredCount] =
+        await ctx.db.$transaction([
+          ctx.db.flashCard.count({ where: { studySetId: input.studySetId } }),
+          ctx.db.flashCardProgress.aggregate({
+            where: { flashCard: { studySetId: input.studySetId } },
+            _count: { _all: true },
+            _sum: { correctCount: true, incorrectCount: true },
+            _max: { streak: true },
+          }),
+          ctx.db.flashCardProgress.count({
+            where: {
+              mastered: true,
+              flashCard: { studySetId: input.studySetId },
+            },
+          }),
+        ]);
+
+      const seenCount = progressAgg._count._all ?? 0;
+      const unseenCount = Math.max(0, totalCards - seenCount);
+      const inProgressCount = Math.max(0, seenCount - masteredCount);
+
+      return {
+        totalCards,
+        seenCount,
+        unseenCount,
+        inProgressCount,
+        masteredCount,
+        correctCount: progressAgg._sum.correctCount ?? 0,
+        incorrectCount: progressAgg._sum.incorrectCount ?? 0,
+        maxStreak: progressAgg._max.streak ?? 0,
+      };
+    }),
+
+  resetLearnProgress: publicProcedure
+    .input(setInput)
+    .mutation(async ({ ctx, input }) => {
+      const deleted = await ctx.db.flashCardProgress.deleteMany({
         where: { flashCard: { studySetId: input.studySetId } },
-        _count: { _all: true },
-        _sum: { correctCount: true, incorrectCount: true },
-        _max: { streak: true },
-      }),
-      ctx.db.flashCardProgress.count({
-        where: { mastered: true, flashCard: { studySetId: input.studySetId } },
-      }),
-    ]);
-
-    const seenCount = progressAgg._count._all ?? 0;
-    const unseenCount = Math.max(0, totalCards - seenCount);
-    const inProgressCount = Math.max(0, seenCount - masteredCount);
-
-    return {
-      totalCards,
-      seenCount,
-      unseenCount,
-      inProgressCount,
-      masteredCount,
-      correctCount: progressAgg._sum.correctCount ?? 0,
-      incorrectCount: progressAgg._sum.incorrectCount ?? 0,
-      maxStreak: progressAgg._max.streak ?? 0,
-    };
-  }),
-
-  resetLearnProgress: publicProcedure.input(setInput).mutation(async ({ ctx, input }) => {
-    const deleted = await ctx.db.flashCardProgress.deleteMany({
-      where: { flashCard: { studySetId: input.studySetId } },
-    });
-    return { deleted: deleted.count };
-  }),
+      });
+      return { deleted: deleted.count };
+    }),
 });

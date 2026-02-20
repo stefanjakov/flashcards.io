@@ -19,7 +19,7 @@ export default function SetCard({ id, name, currentStudySetId }: SetCardProps) {
 
   const deleteMutation = api.flashCard.deleteStudySet.useMutation({
     onSuccess: () => {
-      utils.flashCard.getStudySets.invalidate();
+      void utils.flashCard.getStudySets.invalidate();
       setShowDeleteError(false);
     },
   });
@@ -34,7 +34,6 @@ export default function SetCard({ id, name, currentStudySetId }: SetCardProps) {
   }, [showDeleteError]);
 
   const handleDelete = async () => {
-    console.log(currentStudySetId)
     if (currentStudySetId != null && id === currentStudySetId) {
       setShowDeleteError(true);
       return;
@@ -46,7 +45,7 @@ export default function SetCard({ id, name, currentStudySetId }: SetCardProps) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 hover:shadow-sm transition-all">
+      <div className="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 transition-all hover:shadow-sm">
         <p className="font-medium text-gray-800">{name}</p>
 
         <Button

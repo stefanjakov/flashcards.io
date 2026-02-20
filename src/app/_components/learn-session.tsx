@@ -62,18 +62,21 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
   }, 0);
   const optimisticStats = baseStats
     ? {
-      totalCards: baseStats.totalCards,
-      seenCount: baseStats.seenCount + newlySeenDelta,
-      unseenCount: Math.max(0, baseStats.unseenCount - newlySeenDelta),
-      inProgressCount: Math.max(
-        0,
-        baseStats.seenCount + newlySeenDelta - baseStats.masteredCount,
-      ),
-      masteredCount: baseStats.masteredCount,
-      correctCount: baseStats.correctCount + correctDelta,
-      incorrectCount: baseStats.incorrectCount + incorrectDelta,
-      maxStreak: Math.max(baseStats.maxStreak, getLongestStreak(answerHistory)),
-    }
+        totalCards: baseStats.totalCards,
+        seenCount: baseStats.seenCount + newlySeenDelta,
+        unseenCount: Math.max(0, baseStats.unseenCount - newlySeenDelta),
+        inProgressCount: Math.max(
+          0,
+          baseStats.seenCount + newlySeenDelta - baseStats.masteredCount,
+        ),
+        masteredCount: baseStats.masteredCount,
+        correctCount: baseStats.correctCount + correctDelta,
+        incorrectCount: baseStats.incorrectCount + incorrectDelta,
+        maxStreak: Math.max(
+          baseStats.maxStreak,
+          getLongestStreak(answerHistory),
+        ),
+      }
     : undefined;
 
   const isBatchComplete = useMemo(
@@ -140,8 +143,11 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
     ]);
   };
 
-  const renderFooter = (footerCurrentIndex: number, footerBatchSize: number) => (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t-4 border-brand-secondary bg-white shadow-lg">
+  const renderFooter = (
+    footerCurrentIndex: number,
+    footerBatchSize: number,
+  ) => (
+    <div className="border-brand-secondary fixed right-0 bottom-0 left-0 z-40 border-t-4 bg-white shadow-lg">
       <div className="mx-auto w-full max-w-4xl px-3 py-3 sm:px-4 sm:py-4">
         <LearnProgress
           setName={studySetName}
@@ -170,7 +176,8 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
       <div className="space-y-4 pb-56 sm:pb-64">
         <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 sm:p-6">
           <p className="text-sm text-slate-600">
-            This set has no unseen cards. Add cards or reset this set&apos;s progress.
+            This set has no unseen cards. Add cards or reset this set&apos;s
+            progress.
           </p>
         </div>
         {renderFooter(0, 7)}
@@ -181,9 +188,13 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
   if (isBatchComplete) {
     return (
       <div className="space-y-4 pb-56 sm:pb-64">
-        <div className="mx-auto w-full max-w-2xl rounded-xl border-4 border-brand-secondary bg-white p-4 text-sm sm:p-6">
-          <div className="text-lg text-brand-primary font-medium">Keep it going!</div>
-          <div className="mt-2 text-slate-600">Incorrect answers: {wrongIds.length}</div>
+        <div className="border-brand-secondary mx-auto w-full max-w-2xl rounded-xl border-4 bg-white p-4 text-sm sm:p-6">
+          <div className="text-brand-primary text-lg font-medium">
+            Keep it going!
+          </div>
+          <div className="mt-2 text-slate-600">
+            Incorrect answers: {wrongIds.length}
+          </div>
           <button
             type="button"
             onClick={handleNextBatch}

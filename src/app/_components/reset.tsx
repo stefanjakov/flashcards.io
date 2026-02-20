@@ -28,7 +28,7 @@ export function Reset({ onConfirmAction, className }: ResetProps) {
         onClick={() => setOpen(true)}
         className={
           className ??
-          "rounded px-3 py-2 text-xs text-brand-primary sm:text-sm bg-brand-secondary "
+          "text-brand-primary bg-brand-secondary rounded px-3 py-2 text-xs sm:text-sm"
         }
       >
         Reset progress
@@ -41,7 +41,8 @@ export function Reset({ onConfirmAction, className }: ResetProps) {
               Reset progress?
             </h3>
             <p className="mt-2 text-sm text-slate-600">
-              This will mark cards in this set as unseen and clear learn progress.
+              This will mark cards in this set as unseen and clear learn
+              progress.
             </p>
 
             <div className="mt-4 flex items-center gap-2">
