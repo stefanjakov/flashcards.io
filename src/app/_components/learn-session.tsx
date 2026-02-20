@@ -141,14 +141,14 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
   };
 
   const renderFooter = (footerCurrentIndex: number, footerBatchSize: number) => (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t-4 border-brand-secondary bg-white shadow-lg">
       <div className="mx-auto w-full max-w-4xl px-3 py-3 sm:px-4 sm:py-4">
         <LearnProgress
           setName={studySetName}
           currentIndex={footerCurrentIndex}
           batchSize={footerBatchSize}
           stats={optimisticStats ?? undefined}
-          onReset={handleResetProgress}
+          onResetAction={handleResetProgress}
         />
       </div>
     </div>
@@ -158,7 +158,7 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
     return (
       <div className="relative">
         <div className="mx-auto w-full max-w-3xl rounded-xl border bg-white p-4 shadow-sm sm:p-6">
-          <p className="text-sm text-slate-600">Loading batch...</p>
+          <p className="text-sm text-slate-600">Loading...</p>
         </div>
         {renderFooter(0, 7)}
       </div>
@@ -181,9 +181,9 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
   if (isBatchComplete) {
     return (
       <div className="space-y-4 pb-56 sm:pb-64">
-        <div className="mx-auto w-full max-w-2xl rounded-xl border bg-white p-4 text-sm sm:p-6">
-          <div className="text-base font-medium">Batch complete</div>
-          <div className="mt-2 text-slate-600">Wrong in this batch: {wrongIds.length}</div>
+        <div className="mx-auto w-full max-w-2xl rounded-xl border-4 border-brand-secondary bg-white p-4 text-sm sm:p-6">
+          <div className="text-lg text-brand-primary font-medium">Keep it going!</div>
+          <div className="mt-2 text-slate-600">Incorrect answers: {wrongIds.length}</div>
           <button
             type="button"
             onClick={handleNextBatch}
@@ -196,7 +196,7 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
                 aria-label="Loading next batch"
               />
             ) : null}
-            {isContinuing ? "Loading..." : "Next batch"}
+            {isContinuing ? "Loading..." : "Continue"}
           </button>
         </div>
         {renderFooter(batch.length, batch.length)}
@@ -210,7 +210,7 @@ export function LearnSession({ studySetId, studySetName }: LearnSessionProps) {
         <Flashcard
           term={currentCard?.term ?? ""}
           definition={currentCard?.definition ?? ""}
-          onResolve={handleResolveCard}
+          onResolveAction={handleResolveCard}
         />
       </div>
       {renderFooter(currentIndex, batch.length)}

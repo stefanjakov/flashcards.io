@@ -7,10 +7,10 @@ const normalize = (value: string) => value.trim().toLowerCase();
 type FlashcardProps = {
   term: string;
   definition: string;
-  onResolve: (correct: boolean) => void;
+  onResolveAction: (correct: boolean) => void;
 };
 
-export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
+export function Flashcard({ term, definition, onResolveAction }: FlashcardProps) {
   const [answer, setAnswer] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [resultOpen, setResultOpen] = useState(false);
@@ -33,7 +33,7 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
   };
 
   const handleResolve = (correct: boolean) => {
-    onResolve(correct);
+    onResolveAction(correct);
     resetCard();
   };
 
@@ -51,7 +51,7 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
   }, [resultOpen, isCorrect]);
 
   return (
-    <div className="relative rounded-xl border bg-white p-4 text-sm sm:p-6">
+    <div className="relative rounded-xl border-4 border-brand-secondary bg-white p-4 text-sm sm:p-6">
       <div className="text-xs uppercase tracking-wide text-slate-500">
         Definition
       </div>
@@ -73,7 +73,7 @@ export function Flashcard({ term, definition, onResolve }: FlashcardProps) {
         <button
           type="button"
           onClick={handleCheck}
-          className="rounded bg-slate-900 px-3 py-2 text-sm text-white sm:text-base"
+          className="rounded px-3 py-2 text-sm text-brand-primary sm:text-base bg-brand-secondary"
         >
           Check
         </button>

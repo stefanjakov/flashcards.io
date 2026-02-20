@@ -71,7 +71,7 @@ export function LearnSetHeader({
               <button
                 type="button"
                 disabled={studySets.length === 0 || isLoading}
-                className="rounded px-3 py-2 text-sm bg-brand-secondary text-brand-primary"
+                className="px-3 py-2 text-sm border-2 border-white rounded-2xl hover:bg-brand-secondary hover:text-brand-primary hover:border-brand-secondary"
               >
                 Change set
               </button>
@@ -96,7 +96,7 @@ export function LearnSetHeader({
         </div>
       </div>
       <p className="mt-1 text-xs sm:text-sm">
-        Type the term for each definition. Wrong answers return next batch.
+        Type the term for each definition.
       </p>
     </header>
   );

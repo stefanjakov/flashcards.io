@@ -3,18 +3,18 @@
 import { useState } from "react";
 
 type ResetProps = {
-  onConfirm: () => Promise<void>;
+  onConfirmAction: () => Promise<void>;
   className?: string;
 };
 
-export function Reset({ onConfirm, className }: ResetProps) {
+export function Reset({ onConfirmAction, className }: ResetProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleConfirm = async () => {
     setIsLoading(true);
     try {
-      await onConfirm();
+      await onConfirmAction();
       setOpen(false);
     } finally {
       setIsLoading(false);

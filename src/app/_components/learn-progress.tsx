@@ -18,7 +18,7 @@ type LearnProgressProps = {
   currentIndex: number;
   batchSize: number;
   stats?: LearnProgressStats;
-  onReset?: () => Promise<void>;
+  onResetAction?: () => Promise<void>;
 };
 
 export function LearnProgress({
@@ -26,7 +26,7 @@ export function LearnProgress({
   currentIndex,
   batchSize,
   stats,
-  onReset,
+  onResetAction,
 }: LearnProgressProps) {
   const cardIndex = Math.min(currentIndex + 1, batchSize);
 
@@ -40,9 +40,9 @@ export function LearnProgress({
             {stats ? ` • Total ${stats.totalCards}` : ""}
           </p>
         </div>
-        {onReset ? (
+        {onResetAction ? (
           <Reset
-            onConfirm={onReset}
+            onConfirmAction={onResetAction}
             className="rounded-full border border-brand-primary/20 bg-brand-primary/5 px-2.5 py-1 text-[11px] text-brand-primary sm:text-xs"
           />
         ) : null}
