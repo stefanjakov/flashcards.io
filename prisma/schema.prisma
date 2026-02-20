@@ -16,6 +16,8 @@ model FlashCard {
   term       String
   definition String
   createdAt  DateTime @default(now())
+  studySet   StudySet @relation(fields: [studySetId], references: [id])
+  studySetId Int
 
   progress FlashCardProgress?
 }
@@ -29,4 +31,18 @@ model FlashCardProgress {
   incorrectCount Int     @default(0)
   streak         Int     @default(0)
   mastered       Boolean @default(false)
+}
+
+model StudySet {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  cards     FlashCard[]
+  appStates AppState[]
+}
+
+model AppState {
+  id               Int       @id
+  currentStudySet  StudySet? @relation(fields: [currentStudySetId], references: [id])
+  currentStudySetId Int?
 }

@@ -97,7 +97,8 @@ exports.Prisma.FlashCardScalarFieldEnum = {
   id: 'id',
   term: 'term',
   definition: 'definition',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  studySetId: 'studySetId'
 };
 
 exports.Prisma.FlashCardProgressScalarFieldEnum = {
@@ -107,6 +108,17 @@ exports.Prisma.FlashCardProgressScalarFieldEnum = {
   incorrectCount: 'incorrectCount',
   streak: 'streak',
   mastered: 'mastered'
+};
+
+exports.Prisma.StudySetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AppStateScalarFieldEnum = {
+  id: 'id',
+  currentStudySetId: 'currentStudySetId'
 };
 
 exports.Prisma.SortOrder = {
@@ -119,10 +131,17 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
   FlashCard: 'FlashCard',
-  FlashCardProgress: 'FlashCardProgress'
+  FlashCardProgress: 'FlashCardProgress',
+  StudySet: 'StudySet',
+  AppState: 'AppState'
 };
 /**
  * Create the Client
@@ -171,13 +190,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FlashCard {\n  id         Int      @id @default(autoincrement())\n  term       String\n  definition String\n  createdAt  DateTime @default(now())\n\n  progress FlashCardProgress?\n}\n\nmodel FlashCardProgress {\n  id          Int       @id @default(autoincrement())\n  flashCard   FlashCard @relation(fields: [flashCardId], references: [id])\n  flashCardId Int       @unique\n\n  correctCount   Int     @default(0)\n  incorrectCount Int     @default(0)\n  streak         Int     @default(0)\n  mastered       Boolean @default(false)\n}\n",
-  "inlineSchemaHash": "19625cff48fd8c6c3f1e305c32a546c9d79df4dde0553a31a36634e289a8f74d",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FlashCard {\n  id         Int      @id @default(autoincrement())\n  term       String\n  definition String\n  createdAt  DateTime @default(now())\n  studySet   StudySet @relation(fields: [studySetId], references: [id])\n  studySetId Int\n\n  progress FlashCardProgress?\n}\n\nmodel FlashCardProgress {\n  id          Int       @id @default(autoincrement())\n  flashCard   FlashCard @relation(fields: [flashCardId], references: [id])\n  flashCardId Int       @unique\n\n  correctCount   Int     @default(0)\n  incorrectCount Int     @default(0)\n  streak         Int     @default(0)\n  mastered       Boolean @default(false)\n}\n\nmodel StudySet {\n  id        Int         @id @default(autoincrement())\n  name      String\n  createdAt DateTime    @default(now())\n  cards     FlashCard[]\n  appStates AppState[]\n}\n\nmodel AppState {\n  id                Int       @id\n  currentStudySet   StudySet? @relation(fields: [currentStudySetId], references: [id])\n  currentStudySetId Int?\n}\n",
+  "inlineSchemaHash": "7207a1eed3332ec6613b198d6cce90504a5519b1fd220f221f59db2415009937",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"FlashCard\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"term\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"definition\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"progress\",\"kind\":\"object\",\"type\":\"FlashCardProgress\",\"relationName\":\"FlashCardToFlashCardProgress\"}],\"dbName\":null},\"FlashCardProgress\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"flashCard\",\"kind\":\"object\",\"type\":\"FlashCard\",\"relationName\":\"FlashCardToFlashCardProgress\"},{\"name\":\"flashCardId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"correctCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"incorrectCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"streak\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"mastered\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"FlashCard\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"term\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"definition\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"studySet\",\"kind\":\"object\",\"type\":\"StudySet\",\"relationName\":\"FlashCardToStudySet\"},{\"name\":\"studySetId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"progress\",\"kind\":\"object\",\"type\":\"FlashCardProgress\",\"relationName\":\"FlashCardToFlashCardProgress\"}],\"dbName\":null},\"FlashCardProgress\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"flashCard\",\"kind\":\"object\",\"type\":\"FlashCard\",\"relationName\":\"FlashCardToFlashCardProgress\"},{\"name\":\"flashCardId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"correctCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"incorrectCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"streak\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"mastered\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"StudySet\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cards\",\"kind\":\"object\",\"type\":\"FlashCard\",\"relationName\":\"FlashCardToStudySet\"},{\"name\":\"appStates\",\"kind\":\"object\",\"type\":\"AppState\",\"relationName\":\"AppStateToStudySet\"}],\"dbName\":null},\"AppState\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"currentStudySet\",\"kind\":\"object\",\"type\":\"StudySet\",\"relationName\":\"AppStateToStudySet\"},{\"name\":\"currentStudySetId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

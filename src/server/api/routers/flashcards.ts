@@ -7,6 +7,7 @@ const DEFAULT_LEARN_BATCH_SIZE = 7;
 const MAX_LEARN_BATCH_SIZE = 50;
 
 const learnBatchInput = z.object({
+  studySetId: z.number().int().positive(),
   limit: z
     .number()
     .int()
@@ -18,12 +19,8 @@ const learnBatchInput = z.object({
   batchKey: z.number().int().optional(),
 });
 
-  const learnAnswerInput = z.object({
-    flashCardId: z.number().int().positive(),
-    correct: z.boolean(),
-  });
-
 const submitLearnBatchInput = z.object({
+  studySetId: z.number().int().positive(),
   results: z
     .array(
       z.object({
@@ -32,6 +29,10 @@ const submitLearnBatchInput = z.object({
       }),
     )
     .min(1),
+});
+
+const setInput = z.object({
+  studySetId: z.number().int().positive(),
 });
 
 const shuffleInPlace = <T>(items: T[]) => {
@@ -45,6 +46,48 @@ const shuffleInPlace = <T>(items: T[]) => {
 };
 
 export const flashCardRouter = createTRPCRouter({
+  getCurrentStudySet: publicProcedure.query(async ({ ctx }) => {
+    const state = await ctx.db.appState.findUnique({
+      where: { id: 1 },
+      select: { currentStudySetId: true },
+    });
+    return { studySetId: state?.currentStudySetId ?? null };
+  }),
+
+  setCurrentStudySet: publicProcedure
+    .input(setInput)
+    .mutation(async ({ ctx, input }) => {
+      const setExists = await ctx.db.studySet.findUnique({
+        where: { id: input.studySetId },
+        select: { id: true },
+      });
+      if (!setExists) {
+        throw new Error("Study set not found");
+      }
+
+      const state = await ctx.db.appState.upsert({
+        where: { id: 1 },
+        update: { currentStudySetId: input.studySetId },
+        create: { id: 1, currentStudySetId: input.studySetId },
+        select: { currentStudySetId: true },
+      });
+
+      return { studySetId: state.currentStudySetId };
+    }),
+
+  getStudySets: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.studySet.findMany({
+      orderBy: [{ createdAt: "asc" }, { id: "asc" }],
+      select: {
+        id: true,
+        name: true,
+        _count: {
+          select: { cards: true },
+        },
+      },
+    });
+  }),
+
   getLearnBatch: publicProcedure
     .input(learnBatchInput)
     .query(async ({ ctx, input }) => {
@@ -54,8 +97,8 @@ export const flashCardRouter = createTRPCRouter({
       const retryCards =
         retryIds.length > 0
           ? await ctx.db.flashCard.findMany({
-            where: { id: { in: retryIds } },
-          })
+              where: { id: { in: retryIds }, studySetId: input.studySetId },
+            })
           : [];
 
       const retryOrder = new Map(retryIds.map((id, index) => [id, index]));
@@ -72,8 +115,8 @@ export const flashCardRouter = createTRPCRouter({
 
       const where =
         retryIds.length > 0
-          ? { id: { notIn: retryIds }, progress: null }
-          : { progress: null };
+          ? { id: { notIn: retryIds }, progress: null, studySetId: input.studySetId }
+          : { progress: null, studySetId: input.studySetId };
 
       let nextCards: typeof trimmedRetryCards = [];
       if (input.random) {
@@ -93,50 +136,26 @@ export const flashCardRouter = createTRPCRouter({
       return [...trimmedRetryCards, ...nextCards];
     }),
 
-  recordLearnAnswer: publicProcedure
-    .input(learnAnswerInput)
-    .mutation(async ({ ctx, input }) => {
-      const update = input.correct
-        ? {
-          correctCount: { increment: 1 },
-          streak: { increment: 1 },
-        }
-        : {
-          incorrectCount: { increment: 1 },
-          streak: 0,
-          mastered: false,
-        };
-
-      const create = input.correct
-        ? {
-          flashCardId: input.flashCardId,
-          correctCount: 1,
-          incorrectCount: 0,
-          streak: 1,
-          mastered: false,
-        }
-        : {
-          flashCardId: input.flashCardId,
-          correctCount: 0,
-          incorrectCount: 1,
-          streak: 0,
-          mastered: false,
-        };
-
-      return ctx.db.flashCardProgress.upsert({
-        where: { flashCardId: input.flashCardId },
-        update,
-        create,
-      });
-    }),
-
   submitLearnBatch: publicProcedure
     .input(submitLearnBatchInput)
     .mutation(async ({ ctx, input }) => {
-      const uniqueResults = Array.from(
+      const requestedResults = Array.from(
         new Map(input.results.map((result) => [result.flashCardId, result]))
           .values(),
       );
+      const cardsInSet = await ctx.db.flashCard.findMany({
+        where: {
+          studySetId: input.studySetId,
+          id: { in: requestedResults.map((result) => result.flashCardId) },
+        },
+        select: { id: true },
+      });
+
+      const allowedIds = new Set(cardsInSet.map((card) => card.id));
+      const uniqueResults = requestedResults.filter((result) =>
+        allowedIds.has(result.flashCardId),
+      );
+
       const correctIds = uniqueResults
         .filter((result) => result.correct)
         .map((result) => result.flashCardId);
@@ -193,15 +212,18 @@ export const flashCardRouter = createTRPCRouter({
       return { wrongIds };
     }),
 
-  getLearnProgress: publicProcedure.query(async ({ ctx }) => {
+  getLearnProgress: publicProcedure.input(setInput).query(async ({ ctx, input }) => {
     const [totalCards, progressAgg, masteredCount] = await ctx.db.$transaction([
-      ctx.db.flashCard.count(),
+      ctx.db.flashCard.count({ where: { studySetId: input.studySetId } }),
       ctx.db.flashCardProgress.aggregate({
+        where: { flashCard: { studySetId: input.studySetId } },
         _count: { _all: true },
         _sum: { correctCount: true, incorrectCount: true },
         _max: { streak: true },
       }),
-      ctx.db.flashCardProgress.count({ where: { mastered: true } }),
+      ctx.db.flashCardProgress.count({
+        where: { mastered: true, flashCard: { studySetId: input.studySetId } },
+      }),
     ]);
 
     const seenCount = progressAgg._count._all ?? 0;
@@ -220,8 +242,10 @@ export const flashCardRouter = createTRPCRouter({
     };
   }),
 
-  resetLearnProgress: publicProcedure.mutation(async ({ ctx }) => {
-    const deleted = await ctx.db.flashCardProgress.deleteMany();
+  resetLearnProgress: publicProcedure.input(setInput).mutation(async ({ ctx, input }) => {
+    const deleted = await ctx.db.flashCardProgress.deleteMany({
+      where: { flashCard: { studySetId: input.studySetId } },
+    });
     return { deleted: deleted.count };
   }),
 });

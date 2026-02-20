@@ -23,6 +23,16 @@ export type FlashCard = $Result.DefaultSelection<Prisma.$FlashCardPayload>
  * 
  */
 export type FlashCardProgress = $Result.DefaultSelection<Prisma.$FlashCardProgressPayload>
+/**
+ * Model StudySet
+ * 
+ */
+export type StudySet = $Result.DefaultSelection<Prisma.$StudySetPayload>
+/**
+ * Model AppState
+ * 
+ */
+export type AppState = $Result.DefaultSelection<Prisma.$AppStatePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -161,6 +171,26 @@ export class PrismaClient<
     * ```
     */
   get flashCardProgress(): Prisma.FlashCardProgressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.studySet`: Exposes CRUD operations for the **StudySet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StudySets
+    * const studySets = await prisma.studySet.findMany()
+    * ```
+    */
+  get studySet(): Prisma.StudySetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.appState`: Exposes CRUD operations for the **AppState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AppStates
+    * const appStates = await prisma.appState.findMany()
+    * ```
+    */
+  get appState(): Prisma.AppStateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -603,7 +633,9 @@ export namespace Prisma {
 
   export const ModelName: {
     FlashCard: 'FlashCard',
-    FlashCardProgress: 'FlashCardProgress'
+    FlashCardProgress: 'FlashCardProgress',
+    StudySet: 'StudySet',
+    AppState: 'AppState'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -622,7 +654,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "flashCard" | "flashCardProgress"
+      modelProps: "flashCard" | "flashCardProgress" | "studySet" | "appState"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -774,6 +806,154 @@ export namespace Prisma {
           }
         }
       }
+      StudySet: {
+        payload: Prisma.$StudySetPayload<ExtArgs>
+        fields: Prisma.StudySetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StudySetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StudySetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          findFirst: {
+            args: Prisma.StudySetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StudySetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          findMany: {
+            args: Prisma.StudySetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>[]
+          }
+          create: {
+            args: Prisma.StudySetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          createMany: {
+            args: Prisma.StudySetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StudySetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>[]
+          }
+          delete: {
+            args: Prisma.StudySetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          update: {
+            args: Prisma.StudySetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          deleteMany: {
+            args: Prisma.StudySetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StudySetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StudySetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>[]
+          }
+          upsert: {
+            args: Prisma.StudySetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudySetPayload>
+          }
+          aggregate: {
+            args: Prisma.StudySetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStudySet>
+          }
+          groupBy: {
+            args: Prisma.StudySetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StudySetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StudySetCountArgs<ExtArgs>
+            result: $Utils.Optional<StudySetCountAggregateOutputType> | number
+          }
+        }
+      }
+      AppState: {
+        payload: Prisma.$AppStatePayload<ExtArgs>
+        fields: Prisma.AppStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          findFirst: {
+            args: Prisma.AppStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          findMany: {
+            args: Prisma.AppStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>[]
+          }
+          create: {
+            args: Prisma.AppStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          createMany: {
+            args: Prisma.AppStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AppStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>[]
+          }
+          delete: {
+            args: Prisma.AppStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          update: {
+            args: Prisma.AppStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.AppStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AppStateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>[]
+          }
+          upsert: {
+            args: Prisma.AppStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppStatePayload>
+          }
+          aggregate: {
+            args: Prisma.AppStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAppState>
+          }
+          groupBy: {
+            args: Prisma.AppStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppStateCountArgs<ExtArgs>
+            result: $Utils.Optional<AppStateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -872,6 +1052,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     flashCard?: FlashCardOmit
     flashCardProgress?: FlashCardProgressOmit
+    studySet?: StudySetOmit
+    appState?: AppStateOmit
   }
 
   /* Types for Logging */
@@ -947,6 +1129,45 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type StudySetCountOutputType
+   */
+
+  export type StudySetCountOutputType = {
+    cards: number
+    appStates: number
+  }
+
+  export type StudySetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cards?: boolean | StudySetCountOutputTypeCountCardsArgs
+    appStates?: boolean | StudySetCountOutputTypeCountAppStatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StudySetCountOutputType without action
+   */
+  export type StudySetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySetCountOutputType
+     */
+    select?: StudySetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StudySetCountOutputType without action
+   */
+  export type StudySetCountOutputTypeCountCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlashCardWhereInput
+  }
+
+  /**
+   * StudySetCountOutputType without action
+   */
+  export type StudySetCountOutputTypeCountAppStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppStateWhereInput
+  }
+
 
   /**
    * Models
@@ -966,10 +1187,12 @@ export namespace Prisma {
 
   export type FlashCardAvgAggregateOutputType = {
     id: number | null
+    studySetId: number | null
   }
 
   export type FlashCardSumAggregateOutputType = {
     id: number | null
+    studySetId: number | null
   }
 
   export type FlashCardMinAggregateOutputType = {
@@ -977,6 +1200,7 @@ export namespace Prisma {
     term: string | null
     definition: string | null
     createdAt: Date | null
+    studySetId: number | null
   }
 
   export type FlashCardMaxAggregateOutputType = {
@@ -984,6 +1208,7 @@ export namespace Prisma {
     term: string | null
     definition: string | null
     createdAt: Date | null
+    studySetId: number | null
   }
 
   export type FlashCardCountAggregateOutputType = {
@@ -991,16 +1216,19 @@ export namespace Prisma {
     term: number
     definition: number
     createdAt: number
+    studySetId: number
     _all: number
   }
 
 
   export type FlashCardAvgAggregateInputType = {
     id?: true
+    studySetId?: true
   }
 
   export type FlashCardSumAggregateInputType = {
     id?: true
+    studySetId?: true
   }
 
   export type FlashCardMinAggregateInputType = {
@@ -1008,6 +1236,7 @@ export namespace Prisma {
     term?: true
     definition?: true
     createdAt?: true
+    studySetId?: true
   }
 
   export type FlashCardMaxAggregateInputType = {
@@ -1015,6 +1244,7 @@ export namespace Prisma {
     term?: true
     definition?: true
     createdAt?: true
+    studySetId?: true
   }
 
   export type FlashCardCountAggregateInputType = {
@@ -1022,6 +1252,7 @@ export namespace Prisma {
     term?: true
     definition?: true
     createdAt?: true
+    studySetId?: true
     _all?: true
   }
 
@@ -1116,6 +1347,7 @@ export namespace Prisma {
     term: string
     definition: string
     createdAt: Date
+    studySetId: number
     _count: FlashCardCountAggregateOutputType | null
     _avg: FlashCardAvgAggregateOutputType | null
     _sum: FlashCardSumAggregateOutputType | null
@@ -1142,6 +1374,8 @@ export namespace Prisma {
     term?: boolean
     definition?: boolean
     createdAt?: boolean
+    studySetId?: boolean
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
     progress?: boolean | FlashCard$progressArgs<ExtArgs>
   }, ExtArgs["result"]["flashCard"]>
 
@@ -1150,6 +1384,8 @@ export namespace Prisma {
     term?: boolean
     definition?: boolean
     createdAt?: boolean
+    studySetId?: boolean
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["flashCard"]>
 
   export type FlashCardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1157,6 +1393,8 @@ export namespace Prisma {
     term?: boolean
     definition?: boolean
     createdAt?: boolean
+    studySetId?: boolean
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["flashCard"]>
 
   export type FlashCardSelectScalar = {
@@ -1164,18 +1402,25 @@ export namespace Prisma {
     term?: boolean
     definition?: boolean
     createdAt?: boolean
+    studySetId?: boolean
   }
 
-  export type FlashCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "term" | "definition" | "createdAt", ExtArgs["result"]["flashCard"]>
+  export type FlashCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "term" | "definition" | "createdAt" | "studySetId", ExtArgs["result"]["flashCard"]>
   export type FlashCardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
     progress?: boolean | FlashCard$progressArgs<ExtArgs>
   }
-  export type FlashCardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type FlashCardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FlashCardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
+  }
+  export type FlashCardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    studySet?: boolean | StudySetDefaultArgs<ExtArgs>
+  }
 
   export type $FlashCardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FlashCard"
     objects: {
+      studySet: Prisma.$StudySetPayload<ExtArgs>
       progress: Prisma.$FlashCardProgressPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1183,6 +1428,7 @@ export namespace Prisma {
       term: string
       definition: string
       createdAt: Date
+      studySetId: number
     }, ExtArgs["result"]["flashCard"]>
     composites: {}
   }
@@ -1577,6 +1823,7 @@ export namespace Prisma {
    */
   export interface Prisma__FlashCardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    studySet<T extends StudySetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudySetDefaultArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     progress<T extends FlashCard$progressArgs<ExtArgs> = {}>(args?: Subset<T, FlashCard$progressArgs<ExtArgs>>): Prisma__FlashCardProgressClient<$Result.GetResult<Prisma.$FlashCardProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1611,6 +1858,7 @@ export namespace Prisma {
     readonly term: FieldRef<"FlashCard", 'String'>
     readonly definition: FieldRef<"FlashCard", 'String'>
     readonly createdAt: FieldRef<"FlashCard", 'DateTime'>
+    readonly studySetId: FieldRef<"FlashCard", 'Int'>
   }
     
 
@@ -1860,6 +2108,10 @@ export namespace Prisma {
      */
     data: FlashCardCreateManyInput | FlashCardCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashCardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1930,6 +2182,10 @@ export namespace Prisma {
      * Limit how many FlashCards to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashCardIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3158,6 +3414,2188 @@ export namespace Prisma {
 
 
   /**
+   * Model StudySet
+   */
+
+  export type AggregateStudySet = {
+    _count: StudySetCountAggregateOutputType | null
+    _avg: StudySetAvgAggregateOutputType | null
+    _sum: StudySetSumAggregateOutputType | null
+    _min: StudySetMinAggregateOutputType | null
+    _max: StudySetMaxAggregateOutputType | null
+  }
+
+  export type StudySetAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type StudySetSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type StudySetMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type StudySetMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type StudySetCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StudySetAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type StudySetSumAggregateInputType = {
+    id?: true
+  }
+
+  export type StudySetMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type StudySetMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type StudySetCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StudySetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudySet to aggregate.
+     */
+    where?: StudySetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudySets to fetch.
+     */
+    orderBy?: StudySetOrderByWithRelationInput | StudySetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StudySetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudySets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudySets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StudySets
+    **/
+    _count?: true | StudySetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StudySetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StudySetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StudySetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StudySetMaxAggregateInputType
+  }
+
+  export type GetStudySetAggregateType<T extends StudySetAggregateArgs> = {
+        [P in keyof T & keyof AggregateStudySet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStudySet[P]>
+      : GetScalarType<T[P], AggregateStudySet[P]>
+  }
+
+
+
+
+  export type StudySetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudySetWhereInput
+    orderBy?: StudySetOrderByWithAggregationInput | StudySetOrderByWithAggregationInput[]
+    by: StudySetScalarFieldEnum[] | StudySetScalarFieldEnum
+    having?: StudySetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StudySetCountAggregateInputType | true
+    _avg?: StudySetAvgAggregateInputType
+    _sum?: StudySetSumAggregateInputType
+    _min?: StudySetMinAggregateInputType
+    _max?: StudySetMaxAggregateInputType
+  }
+
+  export type StudySetGroupByOutputType = {
+    id: number
+    name: string
+    createdAt: Date
+    _count: StudySetCountAggregateOutputType | null
+    _avg: StudySetAvgAggregateOutputType | null
+    _sum: StudySetSumAggregateOutputType | null
+    _min: StudySetMinAggregateOutputType | null
+    _max: StudySetMaxAggregateOutputType | null
+  }
+
+  type GetStudySetGroupByPayload<T extends StudySetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StudySetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StudySetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StudySetGroupByOutputType[P]>
+            : GetScalarType<T[P], StudySetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StudySetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    cards?: boolean | StudySet$cardsArgs<ExtArgs>
+    appStates?: boolean | StudySet$appStatesArgs<ExtArgs>
+    _count?: boolean | StudySetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["studySet"]>
+
+  export type StudySetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["studySet"]>
+
+  export type StudySetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["studySet"]>
+
+  export type StudySetSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type StudySetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt", ExtArgs["result"]["studySet"]>
+  export type StudySetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cards?: boolean | StudySet$cardsArgs<ExtArgs>
+    appStates?: boolean | StudySet$appStatesArgs<ExtArgs>
+    _count?: boolean | StudySetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StudySetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type StudySetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $StudySetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StudySet"
+    objects: {
+      cards: Prisma.$FlashCardPayload<ExtArgs>[]
+      appStates: Prisma.$AppStatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["studySet"]>
+    composites: {}
+  }
+
+  type StudySetGetPayload<S extends boolean | null | undefined | StudySetDefaultArgs> = $Result.GetResult<Prisma.$StudySetPayload, S>
+
+  type StudySetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StudySetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StudySetCountAggregateInputType | true
+    }
+
+  export interface StudySetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StudySet'], meta: { name: 'StudySet' } }
+    /**
+     * Find zero or one StudySet that matches the filter.
+     * @param {StudySetFindUniqueArgs} args - Arguments to find a StudySet
+     * @example
+     * // Get one StudySet
+     * const studySet = await prisma.studySet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StudySetFindUniqueArgs>(args: SelectSubset<T, StudySetFindUniqueArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StudySet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StudySetFindUniqueOrThrowArgs} args - Arguments to find a StudySet
+     * @example
+     * // Get one StudySet
+     * const studySet = await prisma.studySet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StudySetFindUniqueOrThrowArgs>(args: SelectSubset<T, StudySetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StudySet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetFindFirstArgs} args - Arguments to find a StudySet
+     * @example
+     * // Get one StudySet
+     * const studySet = await prisma.studySet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StudySetFindFirstArgs>(args?: SelectSubset<T, StudySetFindFirstArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StudySet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetFindFirstOrThrowArgs} args - Arguments to find a StudySet
+     * @example
+     * // Get one StudySet
+     * const studySet = await prisma.studySet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StudySetFindFirstOrThrowArgs>(args?: SelectSubset<T, StudySetFindFirstOrThrowArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StudySets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StudySets
+     * const studySets = await prisma.studySet.findMany()
+     * 
+     * // Get first 10 StudySets
+     * const studySets = await prisma.studySet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const studySetWithIdOnly = await prisma.studySet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StudySetFindManyArgs>(args?: SelectSubset<T, StudySetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StudySet.
+     * @param {StudySetCreateArgs} args - Arguments to create a StudySet.
+     * @example
+     * // Create one StudySet
+     * const StudySet = await prisma.studySet.create({
+     *   data: {
+     *     // ... data to create a StudySet
+     *   }
+     * })
+     * 
+     */
+    create<T extends StudySetCreateArgs>(args: SelectSubset<T, StudySetCreateArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StudySets.
+     * @param {StudySetCreateManyArgs} args - Arguments to create many StudySets.
+     * @example
+     * // Create many StudySets
+     * const studySet = await prisma.studySet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StudySetCreateManyArgs>(args?: SelectSubset<T, StudySetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StudySets and returns the data saved in the database.
+     * @param {StudySetCreateManyAndReturnArgs} args - Arguments to create many StudySets.
+     * @example
+     * // Create many StudySets
+     * const studySet = await prisma.studySet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StudySets and only return the `id`
+     * const studySetWithIdOnly = await prisma.studySet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StudySetCreateManyAndReturnArgs>(args?: SelectSubset<T, StudySetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StudySet.
+     * @param {StudySetDeleteArgs} args - Arguments to delete one StudySet.
+     * @example
+     * // Delete one StudySet
+     * const StudySet = await prisma.studySet.delete({
+     *   where: {
+     *     // ... filter to delete one StudySet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StudySetDeleteArgs>(args: SelectSubset<T, StudySetDeleteArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StudySet.
+     * @param {StudySetUpdateArgs} args - Arguments to update one StudySet.
+     * @example
+     * // Update one StudySet
+     * const studySet = await prisma.studySet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StudySetUpdateArgs>(args: SelectSubset<T, StudySetUpdateArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StudySets.
+     * @param {StudySetDeleteManyArgs} args - Arguments to filter StudySets to delete.
+     * @example
+     * // Delete a few StudySets
+     * const { count } = await prisma.studySet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StudySetDeleteManyArgs>(args?: SelectSubset<T, StudySetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StudySets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StudySets
+     * const studySet = await prisma.studySet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StudySetUpdateManyArgs>(args: SelectSubset<T, StudySetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StudySets and returns the data updated in the database.
+     * @param {StudySetUpdateManyAndReturnArgs} args - Arguments to update many StudySets.
+     * @example
+     * // Update many StudySets
+     * const studySet = await prisma.studySet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StudySets and only return the `id`
+     * const studySetWithIdOnly = await prisma.studySet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StudySetUpdateManyAndReturnArgs>(args: SelectSubset<T, StudySetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StudySet.
+     * @param {StudySetUpsertArgs} args - Arguments to update or create a StudySet.
+     * @example
+     * // Update or create a StudySet
+     * const studySet = await prisma.studySet.upsert({
+     *   create: {
+     *     // ... data to create a StudySet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StudySet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StudySetUpsertArgs>(args: SelectSubset<T, StudySetUpsertArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StudySets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetCountArgs} args - Arguments to filter StudySets to count.
+     * @example
+     * // Count the number of StudySets
+     * const count = await prisma.studySet.count({
+     *   where: {
+     *     // ... the filter for the StudySets we want to count
+     *   }
+     * })
+    **/
+    count<T extends StudySetCountArgs>(
+      args?: Subset<T, StudySetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StudySetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StudySet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StudySetAggregateArgs>(args: Subset<T, StudySetAggregateArgs>): Prisma.PrismaPromise<GetStudySetAggregateType<T>>
+
+    /**
+     * Group by StudySet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudySetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StudySetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StudySetGroupByArgs['orderBy'] }
+        : { orderBy?: StudySetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StudySetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStudySetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StudySet model
+   */
+  readonly fields: StudySetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StudySet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StudySetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cards<T extends StudySet$cardsArgs<ExtArgs> = {}>(args?: Subset<T, StudySet$cardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    appStates<T extends StudySet$appStatesArgs<ExtArgs> = {}>(args?: Subset<T, StudySet$appStatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StudySet model
+   */
+  interface StudySetFieldRefs {
+    readonly id: FieldRef<"StudySet", 'Int'>
+    readonly name: FieldRef<"StudySet", 'String'>
+    readonly createdAt: FieldRef<"StudySet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StudySet findUnique
+   */
+  export type StudySetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter, which StudySet to fetch.
+     */
+    where: StudySetWhereUniqueInput
+  }
+
+  /**
+   * StudySet findUniqueOrThrow
+   */
+  export type StudySetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter, which StudySet to fetch.
+     */
+    where: StudySetWhereUniqueInput
+  }
+
+  /**
+   * StudySet findFirst
+   */
+  export type StudySetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter, which StudySet to fetch.
+     */
+    where?: StudySetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudySets to fetch.
+     */
+    orderBy?: StudySetOrderByWithRelationInput | StudySetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudySets.
+     */
+    cursor?: StudySetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudySets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudySets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudySets.
+     */
+    distinct?: StudySetScalarFieldEnum | StudySetScalarFieldEnum[]
+  }
+
+  /**
+   * StudySet findFirstOrThrow
+   */
+  export type StudySetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter, which StudySet to fetch.
+     */
+    where?: StudySetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudySets to fetch.
+     */
+    orderBy?: StudySetOrderByWithRelationInput | StudySetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudySets.
+     */
+    cursor?: StudySetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudySets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudySets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudySets.
+     */
+    distinct?: StudySetScalarFieldEnum | StudySetScalarFieldEnum[]
+  }
+
+  /**
+   * StudySet findMany
+   */
+  export type StudySetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter, which StudySets to fetch.
+     */
+    where?: StudySetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudySets to fetch.
+     */
+    orderBy?: StudySetOrderByWithRelationInput | StudySetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StudySets.
+     */
+    cursor?: StudySetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudySets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudySets.
+     */
+    skip?: number
+    distinct?: StudySetScalarFieldEnum | StudySetScalarFieldEnum[]
+  }
+
+  /**
+   * StudySet create
+   */
+  export type StudySetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StudySet.
+     */
+    data: XOR<StudySetCreateInput, StudySetUncheckedCreateInput>
+  }
+
+  /**
+   * StudySet createMany
+   */
+  export type StudySetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StudySets.
+     */
+    data: StudySetCreateManyInput | StudySetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StudySet createManyAndReturn
+   */
+  export type StudySetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * The data used to create many StudySets.
+     */
+    data: StudySetCreateManyInput | StudySetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StudySet update
+   */
+  export type StudySetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StudySet.
+     */
+    data: XOR<StudySetUpdateInput, StudySetUncheckedUpdateInput>
+    /**
+     * Choose, which StudySet to update.
+     */
+    where: StudySetWhereUniqueInput
+  }
+
+  /**
+   * StudySet updateMany
+   */
+  export type StudySetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StudySets.
+     */
+    data: XOR<StudySetUpdateManyMutationInput, StudySetUncheckedUpdateManyInput>
+    /**
+     * Filter which StudySets to update
+     */
+    where?: StudySetWhereInput
+    /**
+     * Limit how many StudySets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StudySet updateManyAndReturn
+   */
+  export type StudySetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * The data used to update StudySets.
+     */
+    data: XOR<StudySetUpdateManyMutationInput, StudySetUncheckedUpdateManyInput>
+    /**
+     * Filter which StudySets to update
+     */
+    where?: StudySetWhereInput
+    /**
+     * Limit how many StudySets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StudySet upsert
+   */
+  export type StudySetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StudySet to update in case it exists.
+     */
+    where: StudySetWhereUniqueInput
+    /**
+     * In case the StudySet found by the `where` argument doesn't exist, create a new StudySet with this data.
+     */
+    create: XOR<StudySetCreateInput, StudySetUncheckedCreateInput>
+    /**
+     * In case the StudySet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StudySetUpdateInput, StudySetUncheckedUpdateInput>
+  }
+
+  /**
+   * StudySet delete
+   */
+  export type StudySetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    /**
+     * Filter which StudySet to delete.
+     */
+    where: StudySetWhereUniqueInput
+  }
+
+  /**
+   * StudySet deleteMany
+   */
+  export type StudySetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudySets to delete
+     */
+    where?: StudySetWhereInput
+    /**
+     * Limit how many StudySets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StudySet.cards
+   */
+  export type StudySet$cardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlashCard
+     */
+    select?: FlashCardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlashCard
+     */
+    omit?: FlashCardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashCardInclude<ExtArgs> | null
+    where?: FlashCardWhereInput
+    orderBy?: FlashCardOrderByWithRelationInput | FlashCardOrderByWithRelationInput[]
+    cursor?: FlashCardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FlashCardScalarFieldEnum | FlashCardScalarFieldEnum[]
+  }
+
+  /**
+   * StudySet.appStates
+   */
+  export type StudySet$appStatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    where?: AppStateWhereInput
+    orderBy?: AppStateOrderByWithRelationInput | AppStateOrderByWithRelationInput[]
+    cursor?: AppStateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppStateScalarFieldEnum | AppStateScalarFieldEnum[]
+  }
+
+  /**
+   * StudySet without action
+   */
+  export type StudySetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AppState
+   */
+
+  export type AggregateAppState = {
+    _count: AppStateCountAggregateOutputType | null
+    _avg: AppStateAvgAggregateOutputType | null
+    _sum: AppStateSumAggregateOutputType | null
+    _min: AppStateMinAggregateOutputType | null
+    _max: AppStateMaxAggregateOutputType | null
+  }
+
+  export type AppStateAvgAggregateOutputType = {
+    id: number | null
+    currentStudySetId: number | null
+  }
+
+  export type AppStateSumAggregateOutputType = {
+    id: number | null
+    currentStudySetId: number | null
+  }
+
+  export type AppStateMinAggregateOutputType = {
+    id: number | null
+    currentStudySetId: number | null
+  }
+
+  export type AppStateMaxAggregateOutputType = {
+    id: number | null
+    currentStudySetId: number | null
+  }
+
+  export type AppStateCountAggregateOutputType = {
+    id: number
+    currentStudySetId: number
+    _all: number
+  }
+
+
+  export type AppStateAvgAggregateInputType = {
+    id?: true
+    currentStudySetId?: true
+  }
+
+  export type AppStateSumAggregateInputType = {
+    id?: true
+    currentStudySetId?: true
+  }
+
+  export type AppStateMinAggregateInputType = {
+    id?: true
+    currentStudySetId?: true
+  }
+
+  export type AppStateMaxAggregateInputType = {
+    id?: true
+    currentStudySetId?: true
+  }
+
+  export type AppStateCountAggregateInputType = {
+    id?: true
+    currentStudySetId?: true
+    _all?: true
+  }
+
+  export type AppStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppState to aggregate.
+     */
+    where?: AppStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppStates to fetch.
+     */
+    orderBy?: AppStateOrderByWithRelationInput | AppStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AppStates
+    **/
+    _count?: true | AppStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppStateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppStateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppStateMaxAggregateInputType
+  }
+
+  export type GetAppStateAggregateType<T extends AppStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppState[P]>
+      : GetScalarType<T[P], AggregateAppState[P]>
+  }
+
+
+
+
+  export type AppStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppStateWhereInput
+    orderBy?: AppStateOrderByWithAggregationInput | AppStateOrderByWithAggregationInput[]
+    by: AppStateScalarFieldEnum[] | AppStateScalarFieldEnum
+    having?: AppStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppStateCountAggregateInputType | true
+    _avg?: AppStateAvgAggregateInputType
+    _sum?: AppStateSumAggregateInputType
+    _min?: AppStateMinAggregateInputType
+    _max?: AppStateMaxAggregateInputType
+  }
+
+  export type AppStateGroupByOutputType = {
+    id: number
+    currentStudySetId: number | null
+    _count: AppStateCountAggregateOutputType | null
+    _avg: AppStateAvgAggregateOutputType | null
+    _sum: AppStateSumAggregateOutputType | null
+    _min: AppStateMinAggregateOutputType | null
+    _max: AppStateMaxAggregateOutputType | null
+  }
+
+  type GetAppStateGroupByPayload<T extends AppStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AppStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppStateGroupByOutputType[P]>
+            : GetScalarType<T[P], AppStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    currentStudySetId?: boolean
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }, ExtArgs["result"]["appState"]>
+
+  export type AppStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    currentStudySetId?: boolean
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }, ExtArgs["result"]["appState"]>
+
+  export type AppStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    currentStudySetId?: boolean
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }, ExtArgs["result"]["appState"]>
+
+  export type AppStateSelectScalar = {
+    id?: boolean
+    currentStudySetId?: boolean
+  }
+
+  export type AppStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "currentStudySetId", ExtArgs["result"]["appState"]>
+  export type AppStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }
+  export type AppStateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }
+  export type AppStateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    currentStudySet?: boolean | AppState$currentStudySetArgs<ExtArgs>
+  }
+
+  export type $AppStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AppState"
+    objects: {
+      currentStudySet: Prisma.$StudySetPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      currentStudySetId: number | null
+    }, ExtArgs["result"]["appState"]>
+    composites: {}
+  }
+
+  type AppStateGetPayload<S extends boolean | null | undefined | AppStateDefaultArgs> = $Result.GetResult<Prisma.$AppStatePayload, S>
+
+  type AppStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AppStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AppStateCountAggregateInputType | true
+    }
+
+  export interface AppStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AppState'], meta: { name: 'AppState' } }
+    /**
+     * Find zero or one AppState that matches the filter.
+     * @param {AppStateFindUniqueArgs} args - Arguments to find a AppState
+     * @example
+     * // Get one AppState
+     * const appState = await prisma.appState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AppStateFindUniqueArgs>(args: SelectSubset<T, AppStateFindUniqueArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AppState that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AppStateFindUniqueOrThrowArgs} args - Arguments to find a AppState
+     * @example
+     * // Get one AppState
+     * const appState = await prisma.appState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AppStateFindUniqueOrThrowArgs>(args: SelectSubset<T, AppStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AppState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateFindFirstArgs} args - Arguments to find a AppState
+     * @example
+     * // Get one AppState
+     * const appState = await prisma.appState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AppStateFindFirstArgs>(args?: SelectSubset<T, AppStateFindFirstArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AppState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateFindFirstOrThrowArgs} args - Arguments to find a AppState
+     * @example
+     * // Get one AppState
+     * const appState = await prisma.appState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AppStateFindFirstOrThrowArgs>(args?: SelectSubset<T, AppStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AppStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AppStates
+     * const appStates = await prisma.appState.findMany()
+     * 
+     * // Get first 10 AppStates
+     * const appStates = await prisma.appState.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appStateWithIdOnly = await prisma.appState.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AppStateFindManyArgs>(args?: SelectSubset<T, AppStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AppState.
+     * @param {AppStateCreateArgs} args - Arguments to create a AppState.
+     * @example
+     * // Create one AppState
+     * const AppState = await prisma.appState.create({
+     *   data: {
+     *     // ... data to create a AppState
+     *   }
+     * })
+     * 
+     */
+    create<T extends AppStateCreateArgs>(args: SelectSubset<T, AppStateCreateArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AppStates.
+     * @param {AppStateCreateManyArgs} args - Arguments to create many AppStates.
+     * @example
+     * // Create many AppStates
+     * const appState = await prisma.appState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AppStateCreateManyArgs>(args?: SelectSubset<T, AppStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AppStates and returns the data saved in the database.
+     * @param {AppStateCreateManyAndReturnArgs} args - Arguments to create many AppStates.
+     * @example
+     * // Create many AppStates
+     * const appState = await prisma.appState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AppStates and only return the `id`
+     * const appStateWithIdOnly = await prisma.appState.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AppStateCreateManyAndReturnArgs>(args?: SelectSubset<T, AppStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AppState.
+     * @param {AppStateDeleteArgs} args - Arguments to delete one AppState.
+     * @example
+     * // Delete one AppState
+     * const AppState = await prisma.appState.delete({
+     *   where: {
+     *     // ... filter to delete one AppState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AppStateDeleteArgs>(args: SelectSubset<T, AppStateDeleteArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AppState.
+     * @param {AppStateUpdateArgs} args - Arguments to update one AppState.
+     * @example
+     * // Update one AppState
+     * const appState = await prisma.appState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AppStateUpdateArgs>(args: SelectSubset<T, AppStateUpdateArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AppStates.
+     * @param {AppStateDeleteManyArgs} args - Arguments to filter AppStates to delete.
+     * @example
+     * // Delete a few AppStates
+     * const { count } = await prisma.appState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AppStateDeleteManyArgs>(args?: SelectSubset<T, AppStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AppStates
+     * const appState = await prisma.appState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AppStateUpdateManyArgs>(args: SelectSubset<T, AppStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppStates and returns the data updated in the database.
+     * @param {AppStateUpdateManyAndReturnArgs} args - Arguments to update many AppStates.
+     * @example
+     * // Update many AppStates
+     * const appState = await prisma.appState.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AppStates and only return the `id`
+     * const appStateWithIdOnly = await prisma.appState.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AppStateUpdateManyAndReturnArgs>(args: SelectSubset<T, AppStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AppState.
+     * @param {AppStateUpsertArgs} args - Arguments to update or create a AppState.
+     * @example
+     * // Update or create a AppState
+     * const appState = await prisma.appState.upsert({
+     *   create: {
+     *     // ... data to create a AppState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AppState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AppStateUpsertArgs>(args: SelectSubset<T, AppStateUpsertArgs<ExtArgs>>): Prisma__AppStateClient<$Result.GetResult<Prisma.$AppStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AppStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateCountArgs} args - Arguments to filter AppStates to count.
+     * @example
+     * // Count the number of AppStates
+     * const count = await prisma.appState.count({
+     *   where: {
+     *     // ... the filter for the AppStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppStateCountArgs>(
+      args?: Subset<T, AppStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AppState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppStateAggregateArgs>(args: Subset<T, AppStateAggregateArgs>): Prisma.PrismaPromise<GetAppStateAggregateType<T>>
+
+    /**
+     * Group by AppState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppStateGroupByArgs['orderBy'] }
+        : { orderBy?: AppStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AppState model
+   */
+  readonly fields: AppStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AppState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AppStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    currentStudySet<T extends AppState$currentStudySetArgs<ExtArgs> = {}>(args?: Subset<T, AppState$currentStudySetArgs<ExtArgs>>): Prisma__StudySetClient<$Result.GetResult<Prisma.$StudySetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AppState model
+   */
+  interface AppStateFieldRefs {
+    readonly id: FieldRef<"AppState", 'Int'>
+    readonly currentStudySetId: FieldRef<"AppState", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AppState findUnique
+   */
+  export type AppStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter, which AppState to fetch.
+     */
+    where: AppStateWhereUniqueInput
+  }
+
+  /**
+   * AppState findUniqueOrThrow
+   */
+  export type AppStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter, which AppState to fetch.
+     */
+    where: AppStateWhereUniqueInput
+  }
+
+  /**
+   * AppState findFirst
+   */
+  export type AppStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter, which AppState to fetch.
+     */
+    where?: AppStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppStates to fetch.
+     */
+    orderBy?: AppStateOrderByWithRelationInput | AppStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppStates.
+     */
+    cursor?: AppStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppStates.
+     */
+    distinct?: AppStateScalarFieldEnum | AppStateScalarFieldEnum[]
+  }
+
+  /**
+   * AppState findFirstOrThrow
+   */
+  export type AppStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter, which AppState to fetch.
+     */
+    where?: AppStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppStates to fetch.
+     */
+    orderBy?: AppStateOrderByWithRelationInput | AppStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppStates.
+     */
+    cursor?: AppStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppStates.
+     */
+    distinct?: AppStateScalarFieldEnum | AppStateScalarFieldEnum[]
+  }
+
+  /**
+   * AppState findMany
+   */
+  export type AppStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter, which AppStates to fetch.
+     */
+    where?: AppStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppStates to fetch.
+     */
+    orderBy?: AppStateOrderByWithRelationInput | AppStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AppStates.
+     */
+    cursor?: AppStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppStates.
+     */
+    skip?: number
+    distinct?: AppStateScalarFieldEnum | AppStateScalarFieldEnum[]
+  }
+
+  /**
+   * AppState create
+   */
+  export type AppStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AppState.
+     */
+    data: XOR<AppStateCreateInput, AppStateUncheckedCreateInput>
+  }
+
+  /**
+   * AppState createMany
+   */
+  export type AppStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AppStates.
+     */
+    data: AppStateCreateManyInput | AppStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AppState createManyAndReturn
+   */
+  export type AppStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many AppStates.
+     */
+    data: AppStateCreateManyInput | AppStateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AppState update
+   */
+  export type AppStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AppState.
+     */
+    data: XOR<AppStateUpdateInput, AppStateUncheckedUpdateInput>
+    /**
+     * Choose, which AppState to update.
+     */
+    where: AppStateWhereUniqueInput
+  }
+
+  /**
+   * AppState updateMany
+   */
+  export type AppStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AppStates.
+     */
+    data: XOR<AppStateUpdateManyMutationInput, AppStateUncheckedUpdateManyInput>
+    /**
+     * Filter which AppStates to update
+     */
+    where?: AppStateWhereInput
+    /**
+     * Limit how many AppStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AppState updateManyAndReturn
+   */
+  export type AppStateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * The data used to update AppStates.
+     */
+    data: XOR<AppStateUpdateManyMutationInput, AppStateUncheckedUpdateManyInput>
+    /**
+     * Filter which AppStates to update
+     */
+    where?: AppStateWhereInput
+    /**
+     * Limit how many AppStates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AppState upsert
+   */
+  export type AppStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AppState to update in case it exists.
+     */
+    where: AppStateWhereUniqueInput
+    /**
+     * In case the AppState found by the `where` argument doesn't exist, create a new AppState with this data.
+     */
+    create: XOR<AppStateCreateInput, AppStateUncheckedCreateInput>
+    /**
+     * In case the AppState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppStateUpdateInput, AppStateUncheckedUpdateInput>
+  }
+
+  /**
+   * AppState delete
+   */
+  export type AppStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+    /**
+     * Filter which AppState to delete.
+     */
+    where: AppStateWhereUniqueInput
+  }
+
+  /**
+   * AppState deleteMany
+   */
+  export type AppStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppStates to delete
+     */
+    where?: AppStateWhereInput
+    /**
+     * Limit how many AppStates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AppState.currentStudySet
+   */
+  export type AppState$currentStudySetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudySet
+     */
+    select?: StudySetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudySet
+     */
+    omit?: StudySetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudySetInclude<ExtArgs> | null
+    where?: StudySetWhereInput
+  }
+
+  /**
+   * AppState without action
+   */
+  export type AppStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppState
+     */
+    select?: AppStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppState
+     */
+    omit?: AppStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppStateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3175,7 +5613,8 @@ export namespace Prisma {
     id: 'id',
     term: 'term',
     definition: 'definition',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    studySetId: 'studySetId'
   };
 
   export type FlashCardScalarFieldEnum = (typeof FlashCardScalarFieldEnum)[keyof typeof FlashCardScalarFieldEnum]
@@ -3193,6 +5632,23 @@ export namespace Prisma {
   export type FlashCardProgressScalarFieldEnum = (typeof FlashCardProgressScalarFieldEnum)[keyof typeof FlashCardProgressScalarFieldEnum]
 
 
+  export const StudySetScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type StudySetScalarFieldEnum = (typeof StudySetScalarFieldEnum)[keyof typeof StudySetScalarFieldEnum]
+
+
+  export const AppStateScalarFieldEnum: {
+    id: 'id',
+    currentStudySetId: 'currentStudySetId'
+  };
+
+  export type AppStateScalarFieldEnum = (typeof AppStateScalarFieldEnum)[keyof typeof AppStateScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -3207,6 +5663,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3288,6 +5752,8 @@ export namespace Prisma {
     term?: StringFilter<"FlashCard"> | string
     definition?: StringFilter<"FlashCard"> | string
     createdAt?: DateTimeFilter<"FlashCard"> | Date | string
+    studySetId?: IntFilter<"FlashCard"> | number
+    studySet?: XOR<StudySetScalarRelationFilter, StudySetWhereInput>
     progress?: XOR<FlashCardProgressNullableScalarRelationFilter, FlashCardProgressWhereInput> | null
   }
 
@@ -3296,6 +5762,8 @@ export namespace Prisma {
     term?: SortOrder
     definition?: SortOrder
     createdAt?: SortOrder
+    studySetId?: SortOrder
+    studySet?: StudySetOrderByWithRelationInput
     progress?: FlashCardProgressOrderByWithRelationInput
   }
 
@@ -3307,6 +5775,8 @@ export namespace Prisma {
     term?: StringFilter<"FlashCard"> | string
     definition?: StringFilter<"FlashCard"> | string
     createdAt?: DateTimeFilter<"FlashCard"> | Date | string
+    studySetId?: IntFilter<"FlashCard"> | number
+    studySet?: XOR<StudySetScalarRelationFilter, StudySetWhereInput>
     progress?: XOR<FlashCardProgressNullableScalarRelationFilter, FlashCardProgressWhereInput> | null
   }, "id">
 
@@ -3315,6 +5785,7 @@ export namespace Prisma {
     term?: SortOrder
     definition?: SortOrder
     createdAt?: SortOrder
+    studySetId?: SortOrder
     _count?: FlashCardCountOrderByAggregateInput
     _avg?: FlashCardAvgOrderByAggregateInput
     _max?: FlashCardMaxOrderByAggregateInput
@@ -3330,6 +5801,7 @@ export namespace Prisma {
     term?: StringWithAggregatesFilter<"FlashCard"> | string
     definition?: StringWithAggregatesFilter<"FlashCard"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FlashCard"> | Date | string
+    studySetId?: IntWithAggregatesFilter<"FlashCard"> | number
   }
 
   export type FlashCardProgressWhereInput = {
@@ -3394,10 +5866,103 @@ export namespace Prisma {
     mastered?: BoolWithAggregatesFilter<"FlashCardProgress"> | boolean
   }
 
+  export type StudySetWhereInput = {
+    AND?: StudySetWhereInput | StudySetWhereInput[]
+    OR?: StudySetWhereInput[]
+    NOT?: StudySetWhereInput | StudySetWhereInput[]
+    id?: IntFilter<"StudySet"> | number
+    name?: StringFilter<"StudySet"> | string
+    createdAt?: DateTimeFilter<"StudySet"> | Date | string
+    cards?: FlashCardListRelationFilter
+    appStates?: AppStateListRelationFilter
+  }
+
+  export type StudySetOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    cards?: FlashCardOrderByRelationAggregateInput
+    appStates?: AppStateOrderByRelationAggregateInput
+  }
+
+  export type StudySetWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: StudySetWhereInput | StudySetWhereInput[]
+    OR?: StudySetWhereInput[]
+    NOT?: StudySetWhereInput | StudySetWhereInput[]
+    name?: StringFilter<"StudySet"> | string
+    createdAt?: DateTimeFilter<"StudySet"> | Date | string
+    cards?: FlashCardListRelationFilter
+    appStates?: AppStateListRelationFilter
+  }, "id">
+
+  export type StudySetOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: StudySetCountOrderByAggregateInput
+    _avg?: StudySetAvgOrderByAggregateInput
+    _max?: StudySetMaxOrderByAggregateInput
+    _min?: StudySetMinOrderByAggregateInput
+    _sum?: StudySetSumOrderByAggregateInput
+  }
+
+  export type StudySetScalarWhereWithAggregatesInput = {
+    AND?: StudySetScalarWhereWithAggregatesInput | StudySetScalarWhereWithAggregatesInput[]
+    OR?: StudySetScalarWhereWithAggregatesInput[]
+    NOT?: StudySetScalarWhereWithAggregatesInput | StudySetScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"StudySet"> | number
+    name?: StringWithAggregatesFilter<"StudySet"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StudySet"> | Date | string
+  }
+
+  export type AppStateWhereInput = {
+    AND?: AppStateWhereInput | AppStateWhereInput[]
+    OR?: AppStateWhereInput[]
+    NOT?: AppStateWhereInput | AppStateWhereInput[]
+    id?: IntFilter<"AppState"> | number
+    currentStudySetId?: IntNullableFilter<"AppState"> | number | null
+    currentStudySet?: XOR<StudySetNullableScalarRelationFilter, StudySetWhereInput> | null
+  }
+
+  export type AppStateOrderByWithRelationInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrderInput | SortOrder
+    currentStudySet?: StudySetOrderByWithRelationInput
+  }
+
+  export type AppStateWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AppStateWhereInput | AppStateWhereInput[]
+    OR?: AppStateWhereInput[]
+    NOT?: AppStateWhereInput | AppStateWhereInput[]
+    currentStudySetId?: IntNullableFilter<"AppState"> | number | null
+    currentStudySet?: XOR<StudySetNullableScalarRelationFilter, StudySetWhereInput> | null
+  }, "id">
+
+  export type AppStateOrderByWithAggregationInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrderInput | SortOrder
+    _count?: AppStateCountOrderByAggregateInput
+    _avg?: AppStateAvgOrderByAggregateInput
+    _max?: AppStateMaxOrderByAggregateInput
+    _min?: AppStateMinOrderByAggregateInput
+    _sum?: AppStateSumOrderByAggregateInput
+  }
+
+  export type AppStateScalarWhereWithAggregatesInput = {
+    AND?: AppStateScalarWhereWithAggregatesInput | AppStateScalarWhereWithAggregatesInput[]
+    OR?: AppStateScalarWhereWithAggregatesInput[]
+    NOT?: AppStateScalarWhereWithAggregatesInput | AppStateScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AppState"> | number
+    currentStudySetId?: IntNullableWithAggregatesFilter<"AppState"> | number | null
+  }
+
   export type FlashCardCreateInput = {
     term: string
     definition: string
     createdAt?: Date | string
+    studySet: StudySetCreateNestedOneWithoutCardsInput
     progress?: FlashCardProgressCreateNestedOneWithoutFlashCardInput
   }
 
@@ -3406,6 +5971,7 @@ export namespace Prisma {
     term: string
     definition: string
     createdAt?: Date | string
+    studySetId: number
     progress?: FlashCardProgressUncheckedCreateNestedOneWithoutFlashCardInput
   }
 
@@ -3413,6 +5979,7 @@ export namespace Prisma {
     term?: StringFieldUpdateOperationsInput | string
     definition?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySet?: StudySetUpdateOneRequiredWithoutCardsNestedInput
     progress?: FlashCardProgressUpdateOneWithoutFlashCardNestedInput
   }
 
@@ -3421,6 +5988,7 @@ export namespace Prisma {
     term?: StringFieldUpdateOperationsInput | string
     definition?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySetId?: IntFieldUpdateOperationsInput | number
     progress?: FlashCardProgressUncheckedUpdateOneWithoutFlashCardNestedInput
   }
 
@@ -3429,6 +5997,7 @@ export namespace Prisma {
     term: string
     definition: string
     createdAt?: Date | string
+    studySetId: number
   }
 
   export type FlashCardUpdateManyMutationInput = {
@@ -3442,6 +6011,7 @@ export namespace Prisma {
     term?: StringFieldUpdateOperationsInput | string
     definition?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySetId?: IntFieldUpdateOperationsInput | number
   }
 
   export type FlashCardProgressCreateInput = {
@@ -3503,6 +6073,87 @@ export namespace Prisma {
     mastered?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type StudySetCreateInput = {
+    name: string
+    createdAt?: Date | string
+    cards?: FlashCardCreateNestedManyWithoutStudySetInput
+    appStates?: AppStateCreateNestedManyWithoutCurrentStudySetInput
+  }
+
+  export type StudySetUncheckedCreateInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    cards?: FlashCardUncheckedCreateNestedManyWithoutStudySetInput
+    appStates?: AppStateUncheckedCreateNestedManyWithoutCurrentStudySetInput
+  }
+
+  export type StudySetUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: FlashCardUpdateManyWithoutStudySetNestedInput
+    appStates?: AppStateUpdateManyWithoutCurrentStudySetNestedInput
+  }
+
+  export type StudySetUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: FlashCardUncheckedUpdateManyWithoutStudySetNestedInput
+    appStates?: AppStateUncheckedUpdateManyWithoutCurrentStudySetNestedInput
+  }
+
+  export type StudySetCreateManyInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type StudySetUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudySetUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppStateCreateInput = {
+    id: number
+    currentStudySet?: StudySetCreateNestedOneWithoutAppStatesInput
+  }
+
+  export type AppStateUncheckedCreateInput = {
+    id: number
+    currentStudySetId?: number | null
+  }
+
+  export type AppStateUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    currentStudySet?: StudySetUpdateOneWithoutAppStatesNestedInput
+  }
+
+  export type AppStateUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    currentStudySetId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AppStateCreateManyInput = {
+    id: number
+    currentStudySetId?: number | null
+  }
+
+  export type AppStateUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppStateUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    currentStudySetId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -3540,6 +6191,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type StudySetScalarRelationFilter = {
+    is?: StudySetWhereInput
+    isNot?: StudySetWhereInput
+  }
+
   export type FlashCardProgressNullableScalarRelationFilter = {
     is?: FlashCardProgressWhereInput | null
     isNot?: FlashCardProgressWhereInput | null
@@ -3550,10 +6206,12 @@ export namespace Prisma {
     term?: SortOrder
     definition?: SortOrder
     createdAt?: SortOrder
+    studySetId?: SortOrder
   }
 
   export type FlashCardAvgOrderByAggregateInput = {
     id?: SortOrder
+    studySetId?: SortOrder
   }
 
   export type FlashCardMaxOrderByAggregateInput = {
@@ -3561,6 +6219,7 @@ export namespace Prisma {
     term?: SortOrder
     definition?: SortOrder
     createdAt?: SortOrder
+    studySetId?: SortOrder
   }
 
   export type FlashCardMinOrderByAggregateInput = {
@@ -3568,10 +6227,12 @@ export namespace Prisma {
     term?: SortOrder
     definition?: SortOrder
     createdAt?: SortOrder
+    studySetId?: SortOrder
   }
 
   export type FlashCardSumOrderByAggregateInput = {
     id?: SortOrder
+    studySetId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -3683,6 +6344,120 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type FlashCardListRelationFilter = {
+    every?: FlashCardWhereInput
+    some?: FlashCardWhereInput
+    none?: FlashCardWhereInput
+  }
+
+  export type AppStateListRelationFilter = {
+    every?: AppStateWhereInput
+    some?: AppStateWhereInput
+    none?: AppStateWhereInput
+  }
+
+  export type FlashCardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AppStateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StudySetCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StudySetAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type StudySetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StudySetMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StudySetSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type StudySetNullableScalarRelationFilter = {
+    is?: StudySetWhereInput | null
+    isNot?: StudySetWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type AppStateCountOrderByAggregateInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrder
+  }
+
+  export type AppStateAvgOrderByAggregateInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrder
+  }
+
+  export type AppStateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrder
+  }
+
+  export type AppStateMinOrderByAggregateInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrder
+  }
+
+  export type AppStateSumOrderByAggregateInput = {
+    id?: SortOrder
+    currentStudySetId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StudySetCreateNestedOneWithoutCardsInput = {
+    create?: XOR<StudySetCreateWithoutCardsInput, StudySetUncheckedCreateWithoutCardsInput>
+    connectOrCreate?: StudySetCreateOrConnectWithoutCardsInput
+    connect?: StudySetWhereUniqueInput
+  }
+
   export type FlashCardProgressCreateNestedOneWithoutFlashCardInput = {
     create?: XOR<FlashCardProgressCreateWithoutFlashCardInput, FlashCardProgressUncheckedCreateWithoutFlashCardInput>
     connectOrCreate?: FlashCardProgressCreateOrConnectWithoutFlashCardInput
@@ -3701,6 +6476,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type StudySetUpdateOneRequiredWithoutCardsNestedInput = {
+    create?: XOR<StudySetCreateWithoutCardsInput, StudySetUncheckedCreateWithoutCardsInput>
+    connectOrCreate?: StudySetCreateOrConnectWithoutCardsInput
+    upsert?: StudySetUpsertWithoutCardsInput
+    connect?: StudySetWhereUniqueInput
+    update?: XOR<XOR<StudySetUpdateToOneWithWhereWithoutCardsInput, StudySetUpdateWithoutCardsInput>, StudySetUncheckedUpdateWithoutCardsInput>
   }
 
   export type FlashCardProgressUpdateOneWithoutFlashCardNestedInput = {
@@ -3747,6 +6530,114 @@ export namespace Prisma {
     upsert?: FlashCardUpsertWithoutProgressInput
     connect?: FlashCardWhereUniqueInput
     update?: XOR<XOR<FlashCardUpdateToOneWithWhereWithoutProgressInput, FlashCardUpdateWithoutProgressInput>, FlashCardUncheckedUpdateWithoutProgressInput>
+  }
+
+  export type FlashCardCreateNestedManyWithoutStudySetInput = {
+    create?: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput> | FlashCardCreateWithoutStudySetInput[] | FlashCardUncheckedCreateWithoutStudySetInput[]
+    connectOrCreate?: FlashCardCreateOrConnectWithoutStudySetInput | FlashCardCreateOrConnectWithoutStudySetInput[]
+    createMany?: FlashCardCreateManyStudySetInputEnvelope
+    connect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+  }
+
+  export type AppStateCreateNestedManyWithoutCurrentStudySetInput = {
+    create?: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput> | AppStateCreateWithoutCurrentStudySetInput[] | AppStateUncheckedCreateWithoutCurrentStudySetInput[]
+    connectOrCreate?: AppStateCreateOrConnectWithoutCurrentStudySetInput | AppStateCreateOrConnectWithoutCurrentStudySetInput[]
+    createMany?: AppStateCreateManyCurrentStudySetInputEnvelope
+    connect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+  }
+
+  export type FlashCardUncheckedCreateNestedManyWithoutStudySetInput = {
+    create?: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput> | FlashCardCreateWithoutStudySetInput[] | FlashCardUncheckedCreateWithoutStudySetInput[]
+    connectOrCreate?: FlashCardCreateOrConnectWithoutStudySetInput | FlashCardCreateOrConnectWithoutStudySetInput[]
+    createMany?: FlashCardCreateManyStudySetInputEnvelope
+    connect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+  }
+
+  export type AppStateUncheckedCreateNestedManyWithoutCurrentStudySetInput = {
+    create?: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput> | AppStateCreateWithoutCurrentStudySetInput[] | AppStateUncheckedCreateWithoutCurrentStudySetInput[]
+    connectOrCreate?: AppStateCreateOrConnectWithoutCurrentStudySetInput | AppStateCreateOrConnectWithoutCurrentStudySetInput[]
+    createMany?: AppStateCreateManyCurrentStudySetInputEnvelope
+    connect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+  }
+
+  export type FlashCardUpdateManyWithoutStudySetNestedInput = {
+    create?: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput> | FlashCardCreateWithoutStudySetInput[] | FlashCardUncheckedCreateWithoutStudySetInput[]
+    connectOrCreate?: FlashCardCreateOrConnectWithoutStudySetInput | FlashCardCreateOrConnectWithoutStudySetInput[]
+    upsert?: FlashCardUpsertWithWhereUniqueWithoutStudySetInput | FlashCardUpsertWithWhereUniqueWithoutStudySetInput[]
+    createMany?: FlashCardCreateManyStudySetInputEnvelope
+    set?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    disconnect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    delete?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    connect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    update?: FlashCardUpdateWithWhereUniqueWithoutStudySetInput | FlashCardUpdateWithWhereUniqueWithoutStudySetInput[]
+    updateMany?: FlashCardUpdateManyWithWhereWithoutStudySetInput | FlashCardUpdateManyWithWhereWithoutStudySetInput[]
+    deleteMany?: FlashCardScalarWhereInput | FlashCardScalarWhereInput[]
+  }
+
+  export type AppStateUpdateManyWithoutCurrentStudySetNestedInput = {
+    create?: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput> | AppStateCreateWithoutCurrentStudySetInput[] | AppStateUncheckedCreateWithoutCurrentStudySetInput[]
+    connectOrCreate?: AppStateCreateOrConnectWithoutCurrentStudySetInput | AppStateCreateOrConnectWithoutCurrentStudySetInput[]
+    upsert?: AppStateUpsertWithWhereUniqueWithoutCurrentStudySetInput | AppStateUpsertWithWhereUniqueWithoutCurrentStudySetInput[]
+    createMany?: AppStateCreateManyCurrentStudySetInputEnvelope
+    set?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    disconnect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    delete?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    connect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    update?: AppStateUpdateWithWhereUniqueWithoutCurrentStudySetInput | AppStateUpdateWithWhereUniqueWithoutCurrentStudySetInput[]
+    updateMany?: AppStateUpdateManyWithWhereWithoutCurrentStudySetInput | AppStateUpdateManyWithWhereWithoutCurrentStudySetInput[]
+    deleteMany?: AppStateScalarWhereInput | AppStateScalarWhereInput[]
+  }
+
+  export type FlashCardUncheckedUpdateManyWithoutStudySetNestedInput = {
+    create?: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput> | FlashCardCreateWithoutStudySetInput[] | FlashCardUncheckedCreateWithoutStudySetInput[]
+    connectOrCreate?: FlashCardCreateOrConnectWithoutStudySetInput | FlashCardCreateOrConnectWithoutStudySetInput[]
+    upsert?: FlashCardUpsertWithWhereUniqueWithoutStudySetInput | FlashCardUpsertWithWhereUniqueWithoutStudySetInput[]
+    createMany?: FlashCardCreateManyStudySetInputEnvelope
+    set?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    disconnect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    delete?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    connect?: FlashCardWhereUniqueInput | FlashCardWhereUniqueInput[]
+    update?: FlashCardUpdateWithWhereUniqueWithoutStudySetInput | FlashCardUpdateWithWhereUniqueWithoutStudySetInput[]
+    updateMany?: FlashCardUpdateManyWithWhereWithoutStudySetInput | FlashCardUpdateManyWithWhereWithoutStudySetInput[]
+    deleteMany?: FlashCardScalarWhereInput | FlashCardScalarWhereInput[]
+  }
+
+  export type AppStateUncheckedUpdateManyWithoutCurrentStudySetNestedInput = {
+    create?: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput> | AppStateCreateWithoutCurrentStudySetInput[] | AppStateUncheckedCreateWithoutCurrentStudySetInput[]
+    connectOrCreate?: AppStateCreateOrConnectWithoutCurrentStudySetInput | AppStateCreateOrConnectWithoutCurrentStudySetInput[]
+    upsert?: AppStateUpsertWithWhereUniqueWithoutCurrentStudySetInput | AppStateUpsertWithWhereUniqueWithoutCurrentStudySetInput[]
+    createMany?: AppStateCreateManyCurrentStudySetInputEnvelope
+    set?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    disconnect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    delete?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    connect?: AppStateWhereUniqueInput | AppStateWhereUniqueInput[]
+    update?: AppStateUpdateWithWhereUniqueWithoutCurrentStudySetInput | AppStateUpdateWithWhereUniqueWithoutCurrentStudySetInput[]
+    updateMany?: AppStateUpdateManyWithWhereWithoutCurrentStudySetInput | AppStateUpdateManyWithWhereWithoutCurrentStudySetInput[]
+    deleteMany?: AppStateScalarWhereInput | AppStateScalarWhereInput[]
+  }
+
+  export type StudySetCreateNestedOneWithoutAppStatesInput = {
+    create?: XOR<StudySetCreateWithoutAppStatesInput, StudySetUncheckedCreateWithoutAppStatesInput>
+    connectOrCreate?: StudySetCreateOrConnectWithoutAppStatesInput
+    connect?: StudySetWhereUniqueInput
+  }
+
+  export type StudySetUpdateOneWithoutAppStatesNestedInput = {
+    create?: XOR<StudySetCreateWithoutAppStatesInput, StudySetUncheckedCreateWithoutAppStatesInput>
+    connectOrCreate?: StudySetCreateOrConnectWithoutAppStatesInput
+    upsert?: StudySetUpsertWithoutAppStatesInput
+    disconnect?: StudySetWhereInput | boolean
+    delete?: StudySetWhereInput | boolean
+    connect?: StudySetWhereUniqueInput
+    update?: XOR<XOR<StudySetUpdateToOneWithWhereWithoutAppStatesInput, StudySetUpdateWithoutAppStatesInput>, StudySetUncheckedUpdateWithoutAppStatesInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3856,6 +6747,62 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type StudySetCreateWithoutCardsInput = {
+    name: string
+    createdAt?: Date | string
+    appStates?: AppStateCreateNestedManyWithoutCurrentStudySetInput
+  }
+
+  export type StudySetUncheckedCreateWithoutCardsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    appStates?: AppStateUncheckedCreateNestedManyWithoutCurrentStudySetInput
+  }
+
+  export type StudySetCreateOrConnectWithoutCardsInput = {
+    where: StudySetWhereUniqueInput
+    create: XOR<StudySetCreateWithoutCardsInput, StudySetUncheckedCreateWithoutCardsInput>
+  }
+
   export type FlashCardProgressCreateWithoutFlashCardInput = {
     correctCount?: number
     incorrectCount?: number
@@ -3874,6 +6821,30 @@ export namespace Prisma {
   export type FlashCardProgressCreateOrConnectWithoutFlashCardInput = {
     where: FlashCardProgressWhereUniqueInput
     create: XOR<FlashCardProgressCreateWithoutFlashCardInput, FlashCardProgressUncheckedCreateWithoutFlashCardInput>
+  }
+
+  export type StudySetUpsertWithoutCardsInput = {
+    update: XOR<StudySetUpdateWithoutCardsInput, StudySetUncheckedUpdateWithoutCardsInput>
+    create: XOR<StudySetCreateWithoutCardsInput, StudySetUncheckedCreateWithoutCardsInput>
+    where?: StudySetWhereInput
+  }
+
+  export type StudySetUpdateToOneWithWhereWithoutCardsInput = {
+    where?: StudySetWhereInput
+    data: XOR<StudySetUpdateWithoutCardsInput, StudySetUncheckedUpdateWithoutCardsInput>
+  }
+
+  export type StudySetUpdateWithoutCardsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appStates?: AppStateUpdateManyWithoutCurrentStudySetNestedInput
+  }
+
+  export type StudySetUncheckedUpdateWithoutCardsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appStates?: AppStateUncheckedUpdateManyWithoutCurrentStudySetNestedInput
   }
 
   export type FlashCardProgressUpsertWithoutFlashCardInput = {
@@ -3906,6 +6877,7 @@ export namespace Prisma {
     term: string
     definition: string
     createdAt?: Date | string
+    studySet: StudySetCreateNestedOneWithoutCardsInput
   }
 
   export type FlashCardUncheckedCreateWithoutProgressInput = {
@@ -3913,6 +6885,7 @@ export namespace Prisma {
     term: string
     definition: string
     createdAt?: Date | string
+    studySetId: number
   }
 
   export type FlashCardCreateOrConnectWithoutProgressInput = {
@@ -3935,6 +6908,7 @@ export namespace Prisma {
     term?: StringFieldUpdateOperationsInput | string
     definition?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySet?: StudySetUpdateOneRequiredWithoutCardsNestedInput
   }
 
   export type FlashCardUncheckedUpdateWithoutProgressInput = {
@@ -3942,6 +6916,188 @@ export namespace Prisma {
     term?: StringFieldUpdateOperationsInput | string
     definition?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studySetId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FlashCardCreateWithoutStudySetInput = {
+    term: string
+    definition: string
+    createdAt?: Date | string
+    progress?: FlashCardProgressCreateNestedOneWithoutFlashCardInput
+  }
+
+  export type FlashCardUncheckedCreateWithoutStudySetInput = {
+    id?: number
+    term: string
+    definition: string
+    createdAt?: Date | string
+    progress?: FlashCardProgressUncheckedCreateNestedOneWithoutFlashCardInput
+  }
+
+  export type FlashCardCreateOrConnectWithoutStudySetInput = {
+    where: FlashCardWhereUniqueInput
+    create: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput>
+  }
+
+  export type FlashCardCreateManyStudySetInputEnvelope = {
+    data: FlashCardCreateManyStudySetInput | FlashCardCreateManyStudySetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AppStateCreateWithoutCurrentStudySetInput = {
+    id: number
+  }
+
+  export type AppStateUncheckedCreateWithoutCurrentStudySetInput = {
+    id: number
+  }
+
+  export type AppStateCreateOrConnectWithoutCurrentStudySetInput = {
+    where: AppStateWhereUniqueInput
+    create: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput>
+  }
+
+  export type AppStateCreateManyCurrentStudySetInputEnvelope = {
+    data: AppStateCreateManyCurrentStudySetInput | AppStateCreateManyCurrentStudySetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FlashCardUpsertWithWhereUniqueWithoutStudySetInput = {
+    where: FlashCardWhereUniqueInput
+    update: XOR<FlashCardUpdateWithoutStudySetInput, FlashCardUncheckedUpdateWithoutStudySetInput>
+    create: XOR<FlashCardCreateWithoutStudySetInput, FlashCardUncheckedCreateWithoutStudySetInput>
+  }
+
+  export type FlashCardUpdateWithWhereUniqueWithoutStudySetInput = {
+    where: FlashCardWhereUniqueInput
+    data: XOR<FlashCardUpdateWithoutStudySetInput, FlashCardUncheckedUpdateWithoutStudySetInput>
+  }
+
+  export type FlashCardUpdateManyWithWhereWithoutStudySetInput = {
+    where: FlashCardScalarWhereInput
+    data: XOR<FlashCardUpdateManyMutationInput, FlashCardUncheckedUpdateManyWithoutStudySetInput>
+  }
+
+  export type FlashCardScalarWhereInput = {
+    AND?: FlashCardScalarWhereInput | FlashCardScalarWhereInput[]
+    OR?: FlashCardScalarWhereInput[]
+    NOT?: FlashCardScalarWhereInput | FlashCardScalarWhereInput[]
+    id?: IntFilter<"FlashCard"> | number
+    term?: StringFilter<"FlashCard"> | string
+    definition?: StringFilter<"FlashCard"> | string
+    createdAt?: DateTimeFilter<"FlashCard"> | Date | string
+    studySetId?: IntFilter<"FlashCard"> | number
+  }
+
+  export type AppStateUpsertWithWhereUniqueWithoutCurrentStudySetInput = {
+    where: AppStateWhereUniqueInput
+    update: XOR<AppStateUpdateWithoutCurrentStudySetInput, AppStateUncheckedUpdateWithoutCurrentStudySetInput>
+    create: XOR<AppStateCreateWithoutCurrentStudySetInput, AppStateUncheckedCreateWithoutCurrentStudySetInput>
+  }
+
+  export type AppStateUpdateWithWhereUniqueWithoutCurrentStudySetInput = {
+    where: AppStateWhereUniqueInput
+    data: XOR<AppStateUpdateWithoutCurrentStudySetInput, AppStateUncheckedUpdateWithoutCurrentStudySetInput>
+  }
+
+  export type AppStateUpdateManyWithWhereWithoutCurrentStudySetInput = {
+    where: AppStateScalarWhereInput
+    data: XOR<AppStateUpdateManyMutationInput, AppStateUncheckedUpdateManyWithoutCurrentStudySetInput>
+  }
+
+  export type AppStateScalarWhereInput = {
+    AND?: AppStateScalarWhereInput | AppStateScalarWhereInput[]
+    OR?: AppStateScalarWhereInput[]
+    NOT?: AppStateScalarWhereInput | AppStateScalarWhereInput[]
+    id?: IntFilter<"AppState"> | number
+    currentStudySetId?: IntNullableFilter<"AppState"> | number | null
+  }
+
+  export type StudySetCreateWithoutAppStatesInput = {
+    name: string
+    createdAt?: Date | string
+    cards?: FlashCardCreateNestedManyWithoutStudySetInput
+  }
+
+  export type StudySetUncheckedCreateWithoutAppStatesInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    cards?: FlashCardUncheckedCreateNestedManyWithoutStudySetInput
+  }
+
+  export type StudySetCreateOrConnectWithoutAppStatesInput = {
+    where: StudySetWhereUniqueInput
+    create: XOR<StudySetCreateWithoutAppStatesInput, StudySetUncheckedCreateWithoutAppStatesInput>
+  }
+
+  export type StudySetUpsertWithoutAppStatesInput = {
+    update: XOR<StudySetUpdateWithoutAppStatesInput, StudySetUncheckedUpdateWithoutAppStatesInput>
+    create: XOR<StudySetCreateWithoutAppStatesInput, StudySetUncheckedCreateWithoutAppStatesInput>
+    where?: StudySetWhereInput
+  }
+
+  export type StudySetUpdateToOneWithWhereWithoutAppStatesInput = {
+    where?: StudySetWhereInput
+    data: XOR<StudySetUpdateWithoutAppStatesInput, StudySetUncheckedUpdateWithoutAppStatesInput>
+  }
+
+  export type StudySetUpdateWithoutAppStatesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: FlashCardUpdateManyWithoutStudySetNestedInput
+  }
+
+  export type StudySetUncheckedUpdateWithoutAppStatesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cards?: FlashCardUncheckedUpdateManyWithoutStudySetNestedInput
+  }
+
+  export type FlashCardCreateManyStudySetInput = {
+    id?: number
+    term: string
+    definition: string
+    createdAt?: Date | string
+  }
+
+  export type AppStateCreateManyCurrentStudySetInput = {
+    id: number
+  }
+
+  export type FlashCardUpdateWithoutStudySetInput = {
+    term?: StringFieldUpdateOperationsInput | string
+    definition?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    progress?: FlashCardProgressUpdateOneWithoutFlashCardNestedInput
+  }
+
+  export type FlashCardUncheckedUpdateWithoutStudySetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    term?: StringFieldUpdateOperationsInput | string
+    definition?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    progress?: FlashCardProgressUncheckedUpdateOneWithoutFlashCardNestedInput
+  }
+
+  export type FlashCardUncheckedUpdateManyWithoutStudySetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    term?: StringFieldUpdateOperationsInput | string
+    definition?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppStateUpdateWithoutCurrentStudySetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppStateUncheckedUpdateWithoutCurrentStudySetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppStateUncheckedUpdateManyWithoutCurrentStudySetInput = {
+    id?: IntFieldUpdateOperationsInput | number
   }
 
 

@@ -125,7 +125,8 @@ exports.Prisma.FlashCardScalarFieldEnum = {
   id: 'id',
   term: 'term',
   definition: 'definition',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  studySetId: 'studySetId'
 };
 
 exports.Prisma.FlashCardProgressScalarFieldEnum = {
@@ -135,6 +136,17 @@ exports.Prisma.FlashCardProgressScalarFieldEnum = {
   incorrectCount: 'incorrectCount',
   streak: 'streak',
   mastered: 'mastered'
+};
+
+exports.Prisma.StudySetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AppStateScalarFieldEnum = {
+  id: 'id',
+  currentStudySetId: 'currentStudySetId'
 };
 
 exports.Prisma.SortOrder = {
@@ -147,10 +159,17 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
   FlashCard: 'FlashCard',
-  FlashCardProgress: 'FlashCardProgress'
+  FlashCardProgress: 'FlashCardProgress',
+  StudySet: 'StudySet',
+  AppState: 'AppState'
 };
 
 /**
