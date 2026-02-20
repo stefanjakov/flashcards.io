@@ -1,4 +1,3 @@
-import { LearnNavbar } from "~/app/_components/learn-navbar";
 import { LearnSetHeader } from "~/app/_components/learn-set-header";
 import { LearnSession } from "~/app/_components/learn-session";
 import { api, HydrateClient } from "~/trpc/server";
@@ -15,7 +14,6 @@ export default async function Learn() {
   return (
     <HydrateClient>
       <div className="h-screen overflow-hidden bg-brand-primary">
-        <LearnNavbar />
         <main className="h-[calc(100vh-57px)] overflow-hidden px-4 py-4 sm:px-6 sm:py-6 md:px-10">
           <div className="mx-auto w-full max-w-3xl">
             <LearnSetHeader

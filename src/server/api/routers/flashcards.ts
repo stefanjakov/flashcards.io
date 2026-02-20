@@ -54,6 +54,20 @@ export const flashCardRouter = createTRPCRouter({
     return { studySetId: state?.currentStudySetId ?? null };
   }),
 
+  deleteStudySet: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.studySet.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
   setCurrentStudySet: publicProcedure
     .input(setInput)
     .mutation(async ({ ctx, input }) => {
@@ -97,8 +111,8 @@ export const flashCardRouter = createTRPCRouter({
       const retryCards =
         retryIds.length > 0
           ? await ctx.db.flashCard.findMany({
-              where: { id: { in: retryIds }, studySetId: input.studySetId },
-            })
+            where: { id: { in: retryIds }, studySetId: input.studySetId },
+          })
           : [];
 
       const retryOrder = new Map(retryIds.map((id, index) => [id, index]));
@@ -166,9 +180,8 @@ export const flashCardRouter = createTRPCRouter({
       const buildValues = (ids: number[], correct: boolean) =>
         Prisma.join(
           ids.map((id) =>
-            Prisma.sql`(${id}, ${correct ? 1 : 0}, ${correct ? 0 : 1}, ${
-              correct ? 1 : 0
-            }, ${false})`,
+            Prisma.sql`(${id}, ${correct ? 1 : 0}, ${correct ? 0 : 1}, ${correct ? 1 : 0
+              }, ${false})`,
           ),
         );
 

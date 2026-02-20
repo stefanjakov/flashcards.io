@@ -8,9 +8,15 @@ export function LearnNavbar() {
       <Link href="/">
         <div className="text-base sm:text-lg">flashcards.io</div>
       </Link>
-      <Link href="/learn">
-        <div className="text-sm underline px-3 py-2 ">Learn</div>
-      </Link>
+      <div className="flex gap-2">
+        <Link href="/learn">
+          <div className="text-sm underline px-3 py-2 ">Learn</div>
+        </Link>
+        <Link href="/create">
+          <div className="text-sm underline px-3 py-2 ">Create</div>
+        </Link>
+      </div>
+
     </nav>
   );
 }
