@@ -3,11 +3,11 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-const ALLOWED_EMAILS = [
+const ALLOWED_EMAILS = new Set([
   "jakovljevicstefan2004@gmail.com",
   "sandrapooptegeltijafart@gmail.com",
-  "jakovlje@umich.edu"
-];
+  "jakovlje@umich.edu",
+].map((e) => e.toLowerCase()));
 
 export async function requireAllowedEmail() {
   const { userId } = await auth();
@@ -19,16 +19,14 @@ export async function requireAllowedEmail() {
   const client = await clerkClient();
   const user = await client.users.getUser(userId);
 
-  const matchedEmail = user.emailAddresses.find((email) =>
-    ALLOWED_EMAILS.includes(email.emailAddress.toLowerCase())
-  );
+  const primaryEmail = user.primaryEmailAddress?.emailAddress.toLowerCase();
 
-  if (!matchedEmail) {
+  if (!primaryEmail || !ALLOWED_EMAILS.has(primaryEmail)) {
     redirect("/unauthorized");
   }
 
   return {
     userId,
-    email: matchedEmail.emailAddress,
+    email: primaryEmail,
   };
 }
