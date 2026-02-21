@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 const ALLOWED_EMAILS = [
   "jakovljevicstefan2004@gmail.com",
   "sandrapooptegeltijafart@gmail.com",
+  "jakovlje@umich.edu"
 ];
 
 export async function requireAllowedEmail() {
