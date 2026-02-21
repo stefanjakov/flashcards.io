@@ -3,7 +3,7 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-const ALLOWED_EMAIL = "jakovljevicstefan2004@gmail.com";
+const ALLOWED_EMAIL = ["jakovljevicstefan2004@gmail.com", "sandrapooptegeltijafart@gmail.com"];
 
 export async function requireAllowedEmail() {
   const { userId } = await auth();
@@ -15,7 +15,7 @@ export async function requireAllowedEmail() {
   const client = await clerkClient();
   const user = await client.users.getUser(userId);
   const hasAllowedEmail = user.emailAddresses.some(
-    (email) => email.emailAddress.toLowerCase() === ALLOWED_EMAIL,
+    (email) => email.emailAddress.toLowerCase() === ALLOWED_EMAIL[0] || email.emailAddress.toLowerCase() === ALLOWED_EMAIL[1],
   );
 
   if (!hasAllowedEmail) {
